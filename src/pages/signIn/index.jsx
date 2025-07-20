@@ -14,10 +14,7 @@ function SignIn() {
   return (
     <div className='bg-image container-fluid min-vh-100 d-flex align-items-center justify-content-center'>
       <div className="bg-form p-3">
-        <div className="logo-signin mb-4">
-          {/* <img src={iconLogo} className="logo-signin mb-4" alt="logo" /> */}
-
-        </div>
+        <div className="logo-signin mb-4"></div>
         <form className="form-signin w-100" style={{ maxWidth: "400px" }}>
           <input
             type="email"

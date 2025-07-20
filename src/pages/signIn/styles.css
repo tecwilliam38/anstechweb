@@ -30,12 +30,12 @@
 .logo-signin {
   background-image: url('../../assets/logoAns.png');
   background-size: cover;
-  margin: 0 auto;
-  padding: 3px;
-  width: 20vw;
-  height: 40vh;
+  background-position: center;
+  background-repeat: no-repeat;  
+  margin: 0 auto;    
+  width: 15vw;
+  height: 30vh;
   border-radius: 50%;
-  /* box-shadow: 0 10px 13px #222; */
 }
 
 .bg-form {
@@ -56,6 +56,19 @@
     /* Ajusta sem cortar */
     background-position: top center;
   }
+  .logo-signin {
+  background-image: url('../../assets/logoAns.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  margin: 0 auto;
+  padding: 3px;
+  display: flex;
+  width: 50vw;
+  height: 40vh;
+  border-radius: 50%;
+}
 }
 
 .eye-style {
