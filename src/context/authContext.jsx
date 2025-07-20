@@ -1,17 +1,20 @@
+// AuthContext.jsx
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);    
+    const [user, setUser] = useState(null);   
 
     const login = (userData) => {
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
     };
-    const cadastroTecnico = () => {       
+    const cadastroTecnico = (userData) => {
+   ;
     }
-    const cadastroClient = () => {
+    const cadastroClient = (userData) => {
+   
     }
     const logout = () => {
         localStorage.removeItem("user");
@@ -33,4 +36,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
-
