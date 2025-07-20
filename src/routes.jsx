@@ -11,7 +11,7 @@ import Appointments from './pages/appointments';
 
 
 function Rotas() {
-    return <BrowserRouter future={{ v7_startTransition: true }}>
+    return <BrowserRouter future={{ v7_relativeSplatPath: true  }}>
         <Routes>
             <Route element={<PublicRoute />}>
                 <Route path="/" element={<SignIn />} />
