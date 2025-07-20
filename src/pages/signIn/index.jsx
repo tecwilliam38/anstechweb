@@ -1,14 +1,45 @@
 import './styles.css'
 import React, { useState } from 'react'
 import iconLogo from "../../assets/logoLogin.png"
+import { useAuth } from '../../context/authContext';
+import api from '../../api/api';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [visible, setVisible] = useState(false);
+  const [msg, setMsg] = useState("");
 
-  async function HandleLogin(){
-    alert("Logou")
+  async function HandleLogin(e) {
+   e.preventDefault();
+    setMsg("");
+    try {
+      const response = await api.post("/admin/login", {
+        email,
+        password
+      });
+      if (response.data) {
+        // Armazenar os dados da response em variáveis - "sessionToken, sessionId..."
+        const dados = await response.data;
+        api.defaults.headers.common['authorization'] = "Bearer " + response.data.token;
+        login(dados);
+        navigate("/appointments");
+        alert("Logou")
+      } else {
+        console.log(response);
+      }
+    } catch (error) {
+      if (error.response?.data.error) {
+        setMsg(error.response?.data.error);
+      } else {
+        setMsg("Ocorreu um erro ao efetuar login")
+      }
+      console.log(error);
+
+    }
   }
 
   return (
@@ -36,13 +67,13 @@ function SignIn() {
               onClick={() => setVisible(!visible)}
             ></i>
           </div>
-            <button
-                            onClick={HandleLogin}
-                            className="btn btn-primary w-100 button-login p-2"
-                            type="button"
-                        >
-                            Login
-                        </button>
+          <button
+            onClick={HandleLogin}
+            className="btn btn-primary w-100 button-login p-2"
+            type="button"
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>
