@@ -6,6 +6,11 @@ function SignIn() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [visible, setVisible] = useState(false);
+
+  async function HandleLogin(){
+    alert("Logou")
+  }
+
   return (
     <div className='bg-image container-fluid min-vh-100 d-flex align-items-center justify-content-center'>
       <div className="bg-form p-3">
@@ -34,6 +39,13 @@ function SignIn() {
               onClick={() => setVisible(!visible)}
             ></i>
           </div>
+            <button
+                            onClick={HandleLogin}
+                            className="btn btn-primary w-100 button-login p-2"
+                            type="button"
+                        >
+                            Login
+                        </button>
         </form>
       </div>
     </div>

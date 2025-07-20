@@ -9,21 +9,39 @@
   height: 100vh;
 }
 
+.button-login {
+  background: #2A7B9B;
+  border:0;
+  background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(83, 237, 211, 1) 100%);
+}
+.neon-border {
+  border: 1px solid #00ff00; /* verde neon */
+  box-shadow:
+    0 0 5px #00ff00,
+    0 0 10px #00ff00,
+    0 0 20px #00ff00,
+    0 0 40px #00ff00;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #111; /* fundo escuro realça o efeito */
+  color: white;
+}
+
 .logo-signin {
   background-image: url('../../assets/logoAns.png');
   background-size: cover;
   margin: 0 auto;
-  padding:3px;
+  padding: 3px;
   width: 20vw;
   height: 40vh;
-  border-radius: 50%;  
+  border-radius: 50%;
   /* box-shadow: 0 10px 13px #222; */
 }
 
 .bg-form {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 4px 30px rgb(41, 104, 92);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.9);
