@@ -8,7 +8,7 @@ import './style.css';
 
 function Sidebar() {
     return (
-        <div className="d-flex flex-column flex-shrink-0 p-3 bg-light" >         
+        <div className="d-flex flex-column flex-shrink-0 p-3 bg-light" >
             <ul className="nav nav-pills flex-column mb-auto">
                 <li className="nav-item">
                     <a href="#" className="nav-link active" aria-current="page">
@@ -16,27 +16,26 @@ function Sidebar() {
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-link link-dark">                      
+                    <a href="#" className="nav-link link-dark">
                         <AiOutlineDashboard className="icon" />
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-link link-dark">                      
+                    <a href="#" className="nav-link link-dark">
                         <FaCalendarAlt className="icon" />
                     </a>
                 </li>
                 <li>
-                    <a href="#" className="nav-link link-dark">                        
-                        <IoGridOutline className="icon" />                        
+                    <a href="#" className="nav-link link-dark">
+                        <IoGridOutline className="icon" />
                     </a>
                 </li>
                 <li>
                     <a href="#" className="nav-link link-dark">
-                        <svg className="bi me-2" width="16" height="16"><use xlink:href="#people-circle" /></svg>
-                        <FaRegCircleUser className='icon'/>                        
+                        <FaRegCircleUser className='icon' />
                     </a>
                 </li>
-            </ul> 
+            </ul>
         </div>
 
     );
