@@ -1,0 +1,29 @@
+.navbar-logo {
+  width: 25vw;
+}
+
+.bg-navbar {
+  background: #1e5b73;
+  background: linear-gradient(90deg, rgba(30, 91, 115, 1) 0%, rgba(68, 158, 106, 1) 50%, rgba(83, 237, 211, 1) 100%);
+}
+
+.btn-outline-dark {
+  color: #fff !important;
+  border: 1px solid #fff !important;
+  padding: 10px;
+}
+
+.nav-item a:active {
+  color: #ffffff !important;
+}
+
+.nav-item a:focus {
+  color: #354436 !important;
+}
+
+a {
+  color: #000;
+}
+
+/* Mobile */
+@media (max-width: 768px) {}

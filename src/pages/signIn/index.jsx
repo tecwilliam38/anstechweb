@@ -26,8 +26,7 @@ function SignIn() {
         const dados = await response.data;
         api.defaults.headers.common['authorization'] = "Bearer " + response.data.token;
         login(dados);
-        navigate("/appointments");
-        alert("Logou")
+        navigate("/appointments");        
       } else {
         console.log(response);
       }
