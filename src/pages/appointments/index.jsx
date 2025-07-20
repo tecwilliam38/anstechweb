@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import Navbar from '../../components/navbar'
 import Sidebar from '../../components/sidebar'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/authContext'
 
 function Appointments() {
+  const navigate = useNavigate();
+  const [appointments, setAppointments] = useState([]);
+  const [tecnicos, setTecnicos] = useState([]);
+
+  const [idTecnico, setIdTecnico] = useState("");
+  const [dtStart, setDtStart] = useState("");
+  const [dtEnd, setDtEnd] = useState("");
+
+  const { user } = useAuth();
+
   return (
     <div className="container-fluid mt-page">
       <ToastContainer
@@ -17,7 +29,7 @@ function Appointments() {
           <Sidebar />
         </div>
         <div className="col-11 my-1">
-        
+
         </div>
       </div>
     </div>
