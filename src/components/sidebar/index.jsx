@@ -5,7 +5,7 @@ import './style.css';
 
 function Sidebar() {
   return (
-   <div className="sidebar">
+   <div className="sidebar-light-icons mt-4">
       <Nav defaultActiveKey="/home" className="flex-column">
         <Nav.Link href="/home">
           <FaHome className="icon" /> Home
