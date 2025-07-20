@@ -19,5 +19,7 @@
 }
 
 .icon {
-  margin-right: 10px;
+  /* margin-right: 10px; */
+  width: 3vw;
+  height: 8vh;
 }

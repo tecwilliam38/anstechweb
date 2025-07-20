@@ -1,25 +1,45 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
-import { FaHome, FaUser, FaCog } from 'react-icons/fa';
+import { FaHome, FaCalendarAlt, FaUser, FaCog, FaDashcube } from 'react-icons/fa';
+import { AiOutlineDashboard } from "react-icons/ai";
+import { IoGridOutline } from "react-icons/io5";
+import { FaRegCircleUser } from "react-icons/fa6";
 import './style.css';
 
 function Sidebar() {
-  return (
-   <div className="sidebar-light-icons mt-4">
-      <Nav defaultActiveKey="/home" className="flex-column">
-        <Nav.Link href="/home">
-          <FaHome className="icon" /> Home
-        </Nav.Link>
-        <Nav.Link href="/profile">
-          <FaUser className="icon" /> Perfil
-        </Nav.Link>
-        <Nav.Link href="/settings">
-          <FaCog className="icon" /> Configurações
-        </Nav.Link>
-      </Nav>
-    </div>
+    return (
+        <div className="d-flex flex-column flex-shrink-0 p-3 bg-light" >         
+            <ul className="nav nav-pills flex-column mb-auto">
+                <li className="nav-item">
+                    <a href="#" className="nav-link active" aria-current="page">
+                        <FaHome className="icon" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#" className="nav-link link-dark">                      
+                        <AiOutlineDashboard className="icon" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#" className="nav-link link-dark">                      
+                        <FaCalendarAlt className="icon" />
+                    </a>
+                </li>
+                <li>
+                    <a href="#" className="nav-link link-dark">                        
+                        <IoGridOutline className="icon" />                        
+                    </a>
+                </li>
+                <li>
+                    <a href="#" className="nav-link link-dark">
+                        <svg className="bi me-2" width="16" height="16"><use xlink:href="#people-circle" /></svg>
+                        <FaRegCircleUser className='icon'/>                        
+                    </a>
+                </li>
+            </ul> 
+        </div>
 
-  );
+    );
 }
 
 export default Sidebar;

@@ -12,8 +12,10 @@ function Appointments() {
         closeOnClick
         position="top-center" />
       <Navbar />
-      <div className="row">
+      <div className="row justify-content-between">
+        <div className="col-1 border">
         <Sidebar />        
+        </div>
       </div>
     </div>
   )
