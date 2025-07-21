@@ -4,6 +4,7 @@ import Navbar from '../../components/navbar'
 import Sidebar from '../../components/sidebar'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/authContext'
+import api from '../../api/api'
 
 function Appointments() {
   const navigate = useNavigate();
@@ -15,6 +16,17 @@ function Appointments() {
   const [dtEnd, setDtEnd] = useState("");
 
   const { user } = useAuth();
+
+  async function LoadAppointments(e) {
+    e.preventDefault()
+    try {
+      // const response = await api.get()
+    } catch (error) {
+
+    }
+
+  }
+
 
   return (
     <div className="container-fluid mt-page">

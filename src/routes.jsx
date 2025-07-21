@@ -8,6 +8,7 @@ import ProtectedRoute from './context/protectedRoute';
 // Pages
 import SignIn from './pages/signIn';
 import Appointments from './pages/appointments';
+import TecnicosComponent from './pages/tecnicos';
 
 
 function Rotas() {
@@ -18,6 +19,7 @@ function Rotas() {
             </Route>
             <Route element={<ProtectedRoute />}>
                 <Route path="/appointments" element={<Appointments />} />
+                <Route path="/appointments/tecnicos" element={<TecnicosComponent />} />
             </Route>
         </Routes>
     </BrowserRouter>
