@@ -17,7 +17,6 @@ function TecnicosComponent() {
             const response = await api.get("/tecnicos/listar", {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
-            console.log(response.data);
 
             if (response.data) {
                 setTecnicos(response.data)
@@ -27,16 +26,45 @@ function TecnicosComponent() {
                 console.log(error.response.data.error);
         }
     }
-     function ClickEdit(id_tecnico) {
-        navigate("/appointments/edit/" + id_atecnico, {
+
+    async function LoadServices(id_tecnico) {
+
+        if (!id_tecnico)
+            return;
+        try {
+            const response = await api.get("/tecnicos/" + id_tecnico + "/services", {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+
+            if (response.data) {
+                setServices(response.data);
+               alert(response.data);
+            }
+
+        } catch (error) {
+            if (error.response?.data.error) {
+                if (error.response.status == 401)
+                    return navigate("/");
+
+                alert(error.response?.data.error);
+            }
+            else
+                alert("Erro ao listar Serviços");
+        }
+    }
+
+    function ClickEdit(id_tecnico) {
+        navigate("/register/edit/" + id_tecnico, {
             headers: { Authorization: `Bearer ${user.token}` }
         })
     }
 
+
     useEffect(() => {
         LoadTecnicos();
-        // LoadServices();
-    },)
+        LoadServices();
+    }, [])
+    console.log(tecnicos.id_tecnico);
 
     return (
         <>
@@ -53,16 +81,16 @@ function TecnicosComponent() {
                                             Telefone:<p className="card-text">{t.cel_phone}</p>
                                             Endereço:<p className="card-text">{t.endereco}</p>
                                             Competências:<p className="card-text">{t.skill} </p>
-                                              {/* {services?.map((s)=>{
-                    return<>
-                    <div key={s.id_barber_service} className="w-100">
-                      {s.}
-                    </div>
-                    </>
-                  })} */}
+                                            {services?.map((s) => {
+                                                return <>
+                                                    <div key={s.id_tecnico_service} className="w-100">
+                                                        {s.description}
+                                                    </div>
+                                                </>
+                                            })}
                                         </div>
                                         <button className="btn btn-primary">Salvar</button>
-                                        <button onClick={() => props.clickEdit(props.id_tecnico)} className="btn btn-danger mx-2">Editar</button>
+                                        <button onClick={() => ClickEdit(tecnicos.id_tecnico)} className="btn btn-danger button-login mx-2">Editar</button>
                                     </div>
                                 </div>
                             </div>

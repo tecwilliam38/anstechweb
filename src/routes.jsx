@@ -22,6 +22,7 @@ function Rotas() {
                 <Route path="/appointments" element={<Appointments />} />
                 <Route path="/appointments/tecnicos" element={<TecnicosComponent />} />
                 <Route path="/cadastro/tecnicos" element={<RegisterTecnicoComponent />} />
+                <Route path="/register/edit/:id_tecnico" element={<RegisterTecnicoComponent />} />                
             </Route>
         </Routes>
     </BrowserRouter>
