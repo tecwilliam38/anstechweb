@@ -8,7 +8,7 @@ import api from '../../api/api'
 import Appointment from '../../components/appointment'
 import * as Icon from 'react-bootstrap-icons';
 // css do confirm alert
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { confirmAlert } from 'react-confirm-alert'
 import './style.css'
 
@@ -30,38 +30,21 @@ function Appointments() {
   }
 
   function ClickDelete(id_appointment) {
-  confirmAlert({
-  customUI: ({ onClose }) => {
-    return (
-      <div className='custom-ui'>
-        <h1>Exclusão</h1>
-        <p>Confirma exclusão desse agendamento?</p>
-        <div className="button-container">
-          <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteAppointment(id_appointment); onClose(); }}>Sim</button>
-          <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
-        </div>
-      </div>
-    );
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className='custom-ui'>
+            <h1>Exclusão</h1>
+            <p>Confirma exclusão desse agendamento?</p>
+            <div className="button-container">
+              <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteAppointment(id_appointment); onClose(); }}>Sim</button>
+              <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
+            </div>
+          </div>
+        );
+      }
+    });
   }
-});
-
-  }
-  
-  // confirmAlert({
-  //   title: "Exclusão",
-  //   message: "Confirma exclusão desse agendamento?",
-  //   buttons: [
-  //     {
-  //       label: "Sim",
-  //       onClick: () => DeleteAppointment(id_appointment)
-  //     },
-  //     {
-  //       label: "Não",
-  //       onClick: () => { }
-  //     }
-  //   ],
-  //   overlayClassName: "overlay-custom-class-name"
-  // });
 
   async function DeleteAppointment(id) {
     try {
@@ -135,6 +118,7 @@ function Appointments() {
     LoadTecnicos();
     LoadAppointments();
   }, []);
+  
   function ChangeTecnico(e) {
     setIdTecnico(e.target.value);
   }
@@ -173,7 +157,7 @@ function Appointments() {
               </div>
               <button onClick={LoadAppointments} className="btn btn-outline-secondary" type="button">Filtrar</button>
             </div>
-{/* Campo de filtro final */}
+            {/* Campo de filtro final */}
           </div>
           <table className="table table-hover shadow rounded">
             <thead>
