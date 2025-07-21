@@ -9,7 +9,7 @@ function TecnicosComponent() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const [tecnicos, setTecnicos] = useState([]);
-    const [idTecnico, setIdTecnico] = useState("");
+    const [idTecnico, setIdTecnico] = useState(1);
     const [services, setServices] = useState([])
 
     async function LoadTecnicos() {
@@ -18,8 +18,9 @@ function TecnicosComponent() {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
 
-            if (response.data) {
+            if (response?.data) {
                 setTecnicos(response.data)
+                setIdTecnico(1)
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -27,20 +28,17 @@ function TecnicosComponent() {
         }
     }
 
-    async function LoadServices(id_tecnico) {
-
-        if (!id_tecnico)
+    async function LoadServices(id) {
+        if (!id) {
             return;
+        }
         try {
-            const response = await api.get("/tecnicos/" + id_tecnico + "/services", {
+            const response = await api.get("/tecnicos/" + id + "/services", {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
-
-            if (response.data) {
-                setServices(response.data);
-               alert(response.data);
+            if (response?.data) {                
+                setServices(response.data);                
             }
-
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
@@ -62,15 +60,18 @@ function TecnicosComponent() {
 
     useEffect(() => {
         LoadTecnicos();
-        LoadServices();
+        setIdTecnico(1)
     }, [])
-    console.log(tecnicos.id_tecnico);
+
+    useEffect(() => {
+        LoadServices(idTecnico);
+    }, [idTecnico]);
 
     return (
         <>
             <Navbar />
             <div className="container-fluid">
-                <div className="row d-flex justify-content-center mb-1">
+                <div className="row d-flex justify-content-center mb-1">                    
                     <div className="container-fluid">
                         {tecnicos?.map((t) => {
                             return <div className="col-12  col-lg-12 col-md-12 mt-2" key={t.id_tecnico}>
@@ -81,21 +82,24 @@ function TecnicosComponent() {
                                             Telefone:<p className="card-text">{t.cel_phone}</p>
                                             Endereço:<p className="card-text">{t.endereco}</p>
                                             Competências:<p className="card-text">{t.skill} </p>
-                                            {services?.map((s) => {
-                                                return <>
-                                                    <div key={s.id_tecnico_service} className="w-100">
-                                                        {s.description}
-                                                    </div>
-                                                </>
-                                            })}
+
                                         </div>
                                         <button className="btn btn-primary">Salvar</button>
-                                        <button onClick={() => ClickEdit(tecnicos.id_tecnico)} className="btn btn-danger button-login mx-2">Editar</button>
+                                        <button onClick={() => ClickEdit(t.id_tecnico)} className="btn btn-danger button-login mx-2">Editar</button>
                                     </div>
                                 </div>
                             </div>
                         })}
                     </div>
+                    {services?.map((s) => {
+                        return <div key={s.id_service} value={s.id_service}>
+                            {s.description}
+                        </div>
+                    })}
+                    {/* {services?.map(s => {
+                        return <option key={s.id_service}
+                            value={s.id_service}>{s.price}</option>
+                    })} */}
                 </div>
             </div>
         </>

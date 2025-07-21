@@ -56,14 +56,16 @@ console.log(id_tecnico);
             password
         }
         try {
+            
             const response = id_tecnico > 0 ?
-                await api.put("/tecnicos/" + id_tecnico, json, {
-                    headers: { Authorization: `Bearer ${user.token}` }
-                })
-                :
-                await api.post("/tecnicos/register", json, {
-                    headers: { Authorization: `Bearer ${user.token}` }
-                });
+            await api.put("/tecnicos/" + id_tecnico, json, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            })
+            :
+            await api.post("/tecnicos/register", json, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            console.log(id_tecnico);
             if (response.data?.id_tecnico) {
                 toast("Técnico cadastrado com sucesso!")
                 setTimeout(() => {
@@ -91,7 +93,11 @@ console.log(id_tecnico);
                         id_tecnico > 0 ? <h3>📄 Editar Técnico</h3> : <h3>📄 Ficha de Cadastro de Técnicos</h3>
                     }
 
-                    {/* {tecnicos?.map((t) => {
+                    {tecnicos?.map((ts)=>{
+                        return<div key={ts.id_tecnico}>William</div>
+                    })}
+
+                    {tecnicos?.map((t) => {
                         return (
                             <>
                                 <form className="mt-4" key={t.id_tecnico}>
@@ -162,7 +168,7 @@ console.log(id_tecnico);
                                 </form>
                             </>
                         )
-                    })} */}
+                    })}
                 </div>
             </div>
         </>
