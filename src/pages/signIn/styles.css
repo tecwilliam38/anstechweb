@@ -14,19 +14,6 @@
   border:0;
   background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(83, 237, 211, 1) 100%);
 }
-.neon-border {
-  border: 1px solid #00ff00; /* verde neon */
-  box-shadow:
-    0 0 5px #00ff00,
-    0 0 10px #00ff00,
-    0 0 20px #00ff00,
-    0 0 40px #00ff00;
-  border-radius: 8px;
-  padding: 20px;
-  background-color: #111; /* fundo escuro realça o efeito */
-  color: white;
-}
-
 .logo-signin {
   background-image: url('../../assets/logoAns.png');
   background-size: cover;

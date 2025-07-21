@@ -6,7 +6,7 @@ const LOCALHOST = "http://192.168.1.65:3001";
 const TESTEROUTE = "http://localhost:3001";
 
 const api = axios.create({
-    baseURL: VERCELAPI,
+    baseURL: TESTEROUTE,
 });
 
 export default api;
