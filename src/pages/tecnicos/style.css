@@ -2,9 +2,16 @@
     width: 100%;
     height: 40vh;
 }
-
+.topo-tecnicos{
+    margin-top:8%!important;
+}
 .card-shadow {
     border-radius: 16px;
     box-shadow: 0 4px 30px rgb(41, 104, 92);
     border: 1px solid rgba(0, 0, 0, 0.9);
+}
+
+.card-title {
+border-radius: 12px 12px 0 0;
+background: linear-gradient(90deg, rgba(30, 91, 115, 1) 0%, rgba(68, 158, 106, 1) 50%, rgba(83, 237, 211, 1) 100%)!important;
 }

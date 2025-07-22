@@ -132,7 +132,7 @@ function Appointments() {
         position="top-center" />
       <Navbar />
       <div className="row  justify-content-between">
-        <div className="col-11 my-1">
+        <div className="col-10 mx-auto my-1">
           <div className="d-flex justify-content-between align-items-center mb-4 mt-5 p-2">
             <div>
               <h2 className="d-inline me-5 h4 text-dark">Agendamentos</h2>
