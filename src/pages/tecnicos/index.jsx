@@ -62,52 +62,52 @@ function TecnicosComponent() {
     }
 
     // 
-//       function ClickEdit(id_appointment) {
-//     navigate("/appointments/edit/" + id_appointment, {
-//       headers: { Authorization: `Bearer ${user.token}` }
-//     })
-//   }
+    //       function ClickEdit(id_appointment) {
+    //     navigate("/appointments/edit/" + id_appointment, {
+    //       headers: { Authorization: `Bearer ${user.token}` }
+    //     })
+    //   }
 
-  function ClickDelete(id_appointment) {
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div className='custom-ui'>
-            <h1>Exclusão</h1>
-            <p>Confirma exclusão desse agendamento?</p>
-            <div className="button-container">
-              <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteAppointment(id_appointment); onClose(); }}>Sim</button>
-              <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
-            </div>
-          </div>
-        );
-      }
-    });
-  }
-
-  async function DeleteAppointment(id) {
-    try {
-      const response = await api.delete("/appointments/" + id, {
-        headers: { Authorization: `Bearer ${user.token}` }
-      });
-      if (response?.data) {
-        toast("Agendamento excluído com sucesso!")
-        setTimeout(() => {
-          LoadAppointments();
-        }, 5000);
-      }
-
-    } catch (error) {
-      if (error.response?.data.error) {
-        if (error.response.status == 401)
-          return navigate("/");
-
-        alert(error.response?.data.error);
-      }
-      else
-        alert("Erro ao excluir reserva");
+    function ClickDelete(id_appointment) {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className='custom-ui'>
+                        <h1>Exclusão</h1>
+                        <p>Confirma exclusão desse agendamento?</p>
+                        <div className="button-container">
+                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteAppointment(id_appointment); onClose(); }}>Sim</button>
+                            <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
+                        </div>
+                    </div>
+                );
+            }
+        });
     }
-  }
+
+    async function DeleteAppointment(id) {
+        try {
+            const response = await api.delete("/appointments/" + id, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            if (response?.data) {
+                toast("Agendamento excluído com sucesso!")
+                setTimeout(() => {
+                    LoadAppointments();
+                }, 5000);
+            }
+
+        } catch (error) {
+            if (error.response?.data.error) {
+                if (error.response.status == 401)
+                    return navigate("/");
+
+                alert(error.response?.data.error);
+            }
+            else
+                alert("Erro ao excluir reserva");
+        }
+    }
 
 
     useEffect(() => {
@@ -128,7 +128,7 @@ function TecnicosComponent() {
                         {tecnicos?.map((t) => {
                             return (
                                 <>
-                                    <section className="col-12 border my-1 px-3" key={t.id_tecnico}>
+                                    <section className="col-12 border bg-form my-2 px-2" key={t.id_tecnico}>
                                         <div className="row card-title ps-4 py-2 h4 text-light">{t.name}</div>
                                         <div className="row">
                                             <div className="col-3">
@@ -150,22 +150,23 @@ function TecnicosComponent() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="row">
+                                        <div className="row justify-content-between pb-3">
                                             <div className="col-3">
                                                 <dt className='p-2'>👤 Função</dt>
                                                 <div className="border p-2">
                                                     {t.skill}
                                                 </div>
                                             </div>
-                                            <div className="col-3">
-                                                 {services?.map((s) => {
-                                                return <div key={s.id_service} value={s.id_service}>
-                                                    {s.description}
-                                                </div>
-                                            })}
+                                            <div className="col-6">
+                                                <dt className='p-2'>👤 Atividades</dt>
+                                                {services?.map((s) => {
+                                                    return <div className='border' key={s.id_service} value={s.id_service}>
+                                                        {s.description}
+                                                    </div>
+                                                })}
                                             </div>
                                             <div className="col-3 d-flex align-items-end justify-content-end">
-                                                <div className="justify-content-around">
+                                                <div className="justify-content-around me-3">
                                                     <button onClick={() => clickEdit(t.id_tecnico)}
                                                         className="btn btn-sm btn-primary mx-2">
                                                         <i className="bi bi-pencil-square"></i>
@@ -177,14 +178,14 @@ function TecnicosComponent() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section >
                                 </>
                             )
                         })}
 
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
