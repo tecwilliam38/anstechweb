@@ -13,7 +13,7 @@ function TecnicosComponent() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const [tecnicos, setTecnicos] = useState([]);
-    const [idTecnico, setIdTecnico] = useState(1);
+    const [idTecnico, setIdTecnico] = useState();
     const [services, setServices] = useState([])
 
     async function LoadTecnicos() {
@@ -24,9 +24,7 @@ function TecnicosComponent() {
 
             if (response?.data) {
                 setTecnicos(response.data)
-                console.log(response.data);
-
-                setIdTecnico(1)
+                setIdTecnico(response.data.id_tecnico)
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -159,7 +157,14 @@ function TecnicosComponent() {
                                                     {t.skill}
                                                 </div>
                                             </div>
-                                            <div className="col-9 d-flex align-items-end justify-content-end">
+                                            <div className="col-3">
+                                                 {services?.map((s) => {
+                                                return <div key={s.id_service} value={s.id_service}>
+                                                    {s.description}
+                                                </div>
+                                            })}
+                                            </div>
+                                            <div className="col-3 d-flex align-items-end justify-content-end">
                                                 <div className="justify-content-around">
                                                     <button onClick={() => clickEdit(t.id_tecnico)}
                                                         className="btn btn-sm btn-primary mx-2">
