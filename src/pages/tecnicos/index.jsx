@@ -36,8 +36,8 @@ function TecnicosComponent() {
             const response = await api.get("/tecnicos/" + id + "/services", {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
-            if (response?.data) {                
-                setServices(response.data);                
+            if (response?.data) {
+                setServices(response.data);
             }
         } catch (error) {
             if (error.response?.data.error) {
@@ -71,10 +71,10 @@ function TecnicosComponent() {
         <>
             <Navbar />
             <div className="container-fluid">
-                <div className="row d-flex justify-content-center mb-1">                    
+                <div className="row d-flex justify-content-center mb-1">
                     <div className="container-fluid">
                         {tecnicos?.map((t) => {
-                            return <div className="col-12  col-lg-12 col-md-12 mt-2" key={t.id_tecnico}>
+                            return <div className="col-12  col-lg-12 col-md-12" key={t.id_tecnico}>
                                 <div className="card shadow-lg border card-shadow">
                                     <div className="card-body p-4">
                                         <h5 className="card-title h2">{t.name}</h5>
@@ -82,7 +82,11 @@ function TecnicosComponent() {
                                             Telefone:<p className="card-text">{t.cel_phone}</p>
                                             Endereço:<p className="card-text">{t.endereco}</p>
                                             Competências:<p className="card-text">{t.skill} </p>
-
+                                            {services?.map((s) => {
+                                                return <div key={s.id_service} value={s.id_service}>
+                                                    {s.description}
+                                                </div>
+                                            })}
                                         </div>
                                         <button className="btn btn-primary">Salvar</button>
                                         <button onClick={() => ClickEdit(t.id_tecnico)} className="btn btn-danger button-login mx-2">Editar</button>
@@ -91,15 +95,6 @@ function TecnicosComponent() {
                             </div>
                         })}
                     </div>
-                    {services?.map((s) => {
-                        return <div key={s.id_service} value={s.id_service}>
-                            {s.description}
-                        </div>
-                    })}
-                    {/* {services?.map(s => {
-                        return <option key={s.id_service}
-                            value={s.id_service}>{s.price}</option>
-                    })} */}
                 </div>
             </div>
         </>
