@@ -7,7 +7,11 @@ body {
 }
 
 .mt-page {
-    margin-top: 90px;
+    margin-top: 60px;
+    border-radius: 12px;
+}
+.mt-add {
+    margin-top: 9%;
     border-radius: 12px;
 }
 

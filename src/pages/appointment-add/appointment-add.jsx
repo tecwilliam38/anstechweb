@@ -176,7 +176,7 @@ function AppointmentAdd() {
     }, [idTecnico]);
 
     return <>
-        <div className="container-fluid mt-page">
+        <div className="container-fluid mt-add">
             <ToastContainer
                 className='Toastify__toast-body'
                 autoClose={5000}
