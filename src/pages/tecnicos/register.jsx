@@ -52,7 +52,7 @@ function TecnicoRegister() {
             });
 
             if (response?.data) {
-                toast("Cadastro realizado com sucesso!")
+                toast.success("Cadastro realizado com sucesso!")
                 setTimeout(() => {
                     navigate("/appointments/tecnicos");
                     // navigate("/appointments");
