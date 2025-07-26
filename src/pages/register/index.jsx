@@ -1,10 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/api';
 import Navbar from '../../components/navbar/index';
 import { useAuth } from '../../context/authContext';
 import "./style.css"
 import { toast } from 'react-toastify';
+
+
+// Tecnico.propTypes = {
+//     booking_date: PropTypes.date,
+//     booking_hour: PropTypes.DateTimeFormat,
+//     name: PropTypes.string,
+//     cel_phone: PropTypes.string,
+//     endereco: PropTypes.string,
+//     specialty: PropTypes.number,
+//     email: PropTypes.string,
+//     clickEdit: PropTypes.func,
+//     id_tecnico: PropTypes.number,
+// }
+// clickDelete: PropTypes.func,
 
 function RegisterTecnicoComponent() {
     const navigate = useNavigate()
@@ -22,27 +36,25 @@ function RegisterTecnicoComponent() {
 
     const { id_tecnico } = useParams()
 
-    async function LoadTecnicos(id_tecnico) {
+    async function LoadTecnicos(id) {
         try {
-            const response = await api.get("/tecnicos/listar" + id_tecnico, {
+            const response = await api.get("/tecnicos/listar" + id, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
 
-            if (response.data) {
-                setTecnicos(response.data)
+            if (response?.data) {
+                setName(response.dada.name)
+                setEndereco(response.data.endereco)
+                // setTecnicos(response.data)
             }
         } catch (error) {
             if (error.response?.data.error)
                 console.log(error.response.data.error);
         }
     }
-    function ClickEdit(id_tecnico) {
-        navigate("/register/edit/" + id_tecnico, {
-            headers: { Authorization: `Bearer ${user.token}` }
-        })
-    }
-console.log(id_tecnico);
-
+    useEffect(() => {
+        LoadTecnicos();
+    }, []);
 
     async function ExecuteAccount(e) {
         e.preventDefault();
@@ -56,15 +68,15 @@ console.log(id_tecnico);
             password
         }
         try {
-            
+
             const response = id_tecnico > 0 ?
-            await api.put("/tecnicos/" + id_tecnico, json, {
-                headers: { Authorization: `Bearer ${user.token}` }
-            })
-            :
-            await api.post("/tecnicos/register", json, {
-                headers: { Authorization: `Bearer ${user.token}` }
-            });
+                await api.put("/tecnicos/" + id_tecnico, json, {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                })
+                :
+                await api.post("/tecnicos/register", json, {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                });
             console.log(id_tecnico);
             if (response.data?.id_tecnico) {
                 toast("Técnico cadastrado com sucesso!")
@@ -88,27 +100,96 @@ console.log(id_tecnico);
         <>
             <Navbar />
             <div className="container-fluid justify-content-center align-items-center mt-page">
-                <div className="container card-shadow border p-3">
-                    {
-                        id_tecnico > 0 ? <h3>📄 Editar Técnico</h3> : <h3>📄 Ficha de Cadastro de Técnicos</h3>
-                    }
+                {/* <div className="container card-shadow border p-3"> */}
 
-                    {tecnicos?.map((ts)=>{
-                        return<div key={ts.id_tecnico}>William</div>
-                    })}
+                {/* {tecnicos?.map((ts)=>{
+                        return<div key={ts.id_tecnico}>{ts.name}</div>
+                        })} */}
+                <div className="container-fluid topo-tecnicos">
+                    <div className="row d-flex justify-content-center mb-1">
+                        <div className="col-10 mx-auto ">
+                            <section className="col-12 border bg-form my-2 ">
+                                {
+                                    id_tecnico > 0 ? <h3>📄 Editar Técnico</h3> : <h3 className='text-light p-2 card-title'>📄 Ficha de Cadastro de Técnicos</h3>
+                                }
+                                <div className="row ps-4 py-2 h4 text-light">{name}</div>
+                                <div className="row px-2">
+                                    <div className="col-3">
+                                        <dt className='p-2'>👤 Nome:</dt>
+                                        <input
+                                            type="text"
+                                            name="escola"
+                                            value={name}
+                                            className="form-control"
+                                            onChange={(e) => setName(e.targevalue)}
+                                        />
+                                    </div>
+                                    <div className="col-3">
+                                        <dt className='p-2'>👤 Email</dt>
+                                        <input type="email" placeholder="E-mail"
+                                            value={email}
+                                            className="form-control"
+                                            onChange={(e) => setEmail(e.targevalue)} />
+                                    </div>
+                                    <div className="col-6">
+                                        <dt className='p-2'>👤 Endereço</dt>
+                                        <input type="text" placeholder="Endereço"
+                                            value={endereco}
+                                            className="form-control"
+                                            onChange={(e) => setEndereco(e.targevalue)} />
+                                    </div>
+                                    <div className="col-3">
+                                        <dt className='p-2'>👤 Celular</dt>
+                                        <input
+                                            type="tel"
+                                            name="Celular"
+                                            value={cel_phone}
+                                            placeholder="Celular"
+                                            className="form-control"
+                                            onChange={(e) => setCel_phone(e.targevalue)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="row justify-content-between px-2 pb-3">
+                                    <div className="col-3">
+                                        <dt className='p-2'>👤 Função</dt>
+                                       <input type="text" placeholder="Skill"
+                                       value={specialty}
+                                            className="form-control"
+                                            onChange={(e) => setSpecialty(e.targevalue)} />
+                                    </div>
+                                    <div className="col-3 d-flex align-items-end justify-content-end">
+                                        <div className="justify-content-around me-3">
+                                            <button onClick={() => ExecuteAccount(id_tecnico)}
+                                                    className="btn btn-sm btn-primary mx-2">
+                                                  Salvar  {/* <i className="bi bi-pencil-square"></i> */}
+                                                </button>
+                                                {/* <button onClick={() => clickDelete(id_tecnico)}
+                                                    className="btn btn-sm btn-danger">
+                                                    
+                                                    <i className="bi bi-trash"></i>
+                                                </button> */}
+                                        </div>
+                                    </div>
+                                </div>
+                            </section >
+                        </div>
+                    </div>
+                </div >
 
-                    {tecnicos?.map((t) => {
+
+                {/* {tecnicos?.map((t) => {
                         return (
                             <>
-                                <form className="mt-4" key={t.id_tecnico}>
+                                <form className="mt-4" key={id_tecnico}>
                                     <div className="mb-3">
                                         <label className="form-label">Nome do Técnico</label>
                                         <input
                                             type="text"
                                             name="escola"
-                                            value={t.name}
+                                            value={name}
                                             className="form-control"
-                                            onChange={(e) => setName(e.target.value)}
+                                            onChange={(e) => setName(e.targevalue)}
                                         />
                                     </div>
                                     <div className="mb-3">
@@ -118,34 +199,34 @@ console.log(id_tecnico);
                                             name="Celular"
                                             placeholder="Celular"
                                             className="form-control"
-                                            onChange={(e) => setCel_phone(e.target.value)}
+                                            onChange={(e) => setCel_phone(e.targevalue)}
                                         />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">Endereço</label>
                                         <input type="text" placeholder="Endereço"
-                                        value={t.endereco}
+                                            value={endereco}
                                             className="form-control"
-                                            onChange={(e) => setEndereco(e.target.value)} />
+                                            onChange={(e) => setEndereco(e.targevalue)} />
                                     </div>
 
                                     <div className="mb-3">
                                         <label className="form-label">Skill</label>
                                         <input type="text" placeholder="Skill"
                                             className="form-control"
-                                            onChange={(e) => setSpecialty(e.target.value)} />
+                                            onChange={(e) => setSpecialty(e.targevalue)} />
                                     </div>
                                     <div className="mb-3">
                                         <label className="form-label">E-mail</label>
                                         <input type="email" placeholder="E-mail"
                                             value={email}
                                             className="form-control"
-                                            onChange={(e) => setEmail(e.target.value)} />
+                                            onChange={(e) => setEmail(e.targevalue)} />
                                     </div>
                                     <div className="mt-2 position-relative">
                                         <input type={visible ? "text" : "password"} placeholder="Senha"
                                             className="form-control"
-                                            onChange={(e) => setPassword(e.target.value)} />
+                                            onChange={(e) => setPassword(e.targevalue)} />
                                         <i
                                             className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute`}
                                             onClick={() => setVisible(!visible)}
@@ -168,9 +249,9 @@ console.log(id_tecnico);
                                 </form>
                             </>
                         )
-                    })}
-                </div>
+                    })} */}
             </div>
+            {/* </div > */}
         </>
     )
 }
