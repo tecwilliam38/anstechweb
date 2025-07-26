@@ -26,9 +26,7 @@ function TecnicosComponent() {
             if (response?.data) {
                 setTecnicos(response.data)
                 setIdTecnico(response.data.id_tecnico)
-                console.log(response.data.id_tecnico);
-
-            }
+               }
         } catch (error) {
             if (error.response?.data.error)
                 console.log(error.response.data.error);

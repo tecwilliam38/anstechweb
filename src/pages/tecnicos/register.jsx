@@ -2,129 +2,130 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/api';
 import Navbar from '../../components/navbar/index';
-import { useAuth } from '../../context/authContext';
+
 import "./style.css"
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import { useAuth } from '../../context/authContext';
+
 
 
 function TecnicoRegister() {
+
     const navigate = useNavigate()
-    const [name, setName] = useState("")
-    const [cel_phone, setCel_phone] = useState("");
+    // const [name, setName] = useState("")
+    // const [cel_phone, setCel_phone] = useState("");
+    // const [endereco, setEndereco] = useState("");
+    // const [email, setEmail] = useState("")
+    // const [specialty, setSpecialty] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [msg, setMsg] = useState("");
+    // const [idTecnico, setIdTecnico] = useState("")
+    const [visible, setVisible] = useState(false);
+    // const [tecnicos, setTecnicos] = useState([]);
+
+    // 
+    const [name, setName] = useState("");
     const [endereco, setEndereco] = useState("");
-    const [email, setEmail] = useState("")
+    const [cel_phone, setCelPhone] = useState("");
+    const [email, setEmail] = useState("");
     const [specialty, setSpecialty] = useState("");
     const [password, setPassword] = useState("");
     const [msg, setMsg] = useState("");
-    const [idTecnico, setIdTecnico] = useState("")
+
+
+
+
     const { user } = useAuth();
-    const [visible, setVisible] = useState(false);
-    const [tecnicos, setTecnicos] = useState([]);
 
-    const { id_tecnico } = useParams()
-
-
-    async function ExecuteAccount(e) {
-        e.preventDefault();
+    async function ExecuteAccount() {
         setMsg("");
-        const json = {
-            name,
-            cel_phone,
-            endereco,
-            email,
-            specialty,
-            password
-        }
         try {
-
-            // const response = id_tecnico > 0 ?
-            //     await api.put("/tecnicos/" + id_tecnico, json, {
-            //         headers: { Authorization: `Bearer ${user.token}` }
-            //     })
-            //     :
-            //     await api.post("/tecnicos/register", json, {
-            //         headers: { Authorization: `Bearer ${user.token}` }
-            //     });
-            const response = await api.post("/tecnicos/register", json, {
+            const response = await api.post("/tecnicos/register", {
+                name,
+                endereco,
+                cel_phone,
+                email,
+                specialty,
+                password
+            }, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
-            console.log(id_tecnico);
-            if (response.data?.id_tecnico) {
-                toast("Técnico cadastrado com sucesso!")
+
+            if (response?.data) {
+                toast("Cadastro realizado com sucesso!")
                 setTimeout(() => {
-                    navigate("/appointments");
+                    navigate("/appointments/tecnicos");
+                    // navigate("/appointments");
                 }, 3000);
             } else
                 setMsg("Erro ao criar conta. Tente novamente mais tarde.");
-        } catch (error) {
-            console.log(error);
 
-            if (error.response?.data.error)
+        } catch (error) {
+            if (error.response?.data.error) {
+                alert(error)
                 setMsg(error.response?.data.error);
-            else
+            } else
                 setMsg("Erro ao criar conta. Tente novamente mais tarde.");
         }
-    }
 
+    }
+    function ChangeFuncao(e) {
+        setSpecialty(e.target.value);
+    }
 
     return (
         <>
+            <ToastContainer
+                className="Toastify__toast-body"
+                autoClose={5000}
+                closeOnClick
+                position="top-center"
+            />
             <Navbar />
-            <div className="container-fluid justify-content-center align-items-center mt-page">
+            <form className='container-fluid justify-content-center align-items-center mt-page'
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    ExecuteAccount();
+                }}>
                 <div className="container-fluid topo-tecnicos">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
                             <section className="col-12 border bg-form my-2 ">
                                 <h3 className='text-light p-2 card-title'>📄 Ficha de Cadastro de Técnicos</h3>
-                                <div className="row px-2">
-                                    <div className="col-3">
+                                <div className="row px-2 justify-content-around">
+                                    <div className="col-5">
                                         <dt className='p-2'>👤 Nome:</dt>
-                                        <input
-                                            type="text"
-                                            placeholder='Nome do Técnico'
-
-                                            value={name}
-                                            className="form-control"
-                                            onChange={(e) => setName(e.targevalue)}
-                                        />
+                                        <input className='form-control' type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome" required />
                                     </div>
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Email</dt>
-                                        <input type="email" placeholder="E-mail"
-                                            value={email}
-                                            className="form-control"
-                                            onChange={(e) => setEmail(e.targevalue)} />
-                                    </div>
-                                    <div className="col-6">
+                                    <div className="col-5">
                                         <dt className='p-2'>👤 Endereço</dt>
-                                        <input type="text" placeholder="Endereço"
-                                            value={endereco}
-                                            className="form-control"
-                                            onChange={(e) => setEndereco(e.targevalue)} />
+                                        <input className='form-control' type="text" value={endereco} onChange={(e) => setEndereco(e.target.value)} placeholder="Endereço" required />
                                     </div>
-                                    <div className="col-3">
+                                    <div className="col-2">
                                         <dt className='p-2'>👤 Celular</dt>
-                                        <input
-                                            type="tel"
-                                            name="Celular"
-                                            value={cel_phone}
-                                            placeholder="Celular"
-                                            className="form-control"
-                                            onChange={(e) => setCel_phone(e.targevalue)}
-                                        />
+                                        <input className='form-control' type="text" value={cel_phone} onChange={(e) => setCelPhone(e.target.value)} placeholder="Celular" required />
                                     </div>
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Função</dt>
-                                        <input type="text" placeholder="Skill"
-                                            value={specialty}
-                                            className="form-control"
-                                            onChange={(e) => setSpecialty(e.targevalue)} />
+                                    <div className="row px-2 mb-3 justify-content-around">
+                                        <div className="col-4">
+                                            <dt className='p-2'>👤 E-mail</dt>
+                                            <input className='form-control' type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
+                                        </div>
+                                        <div className="col-3">
+                                            <dt className='p-2'>👤 Função</dt>
+                                            <select className='form-control' name="tecnico" id="tecnico" onChange={ChangeFuncao}>
+                                                <option value="">Escolha uma função...</option>
+                                                <option value={"Tecnico Geral"} >Técnico Geral</option>
+                                                <option value={"Tecnico Redes"} >Técnico de Redes</option>
+                                                <option value={"Tecnico Rollout"} >Técnico de Rollout</option>
+                                        </select>
+                                        {/* <input className='form-control' type="text" value={specialty} onChange={(e) => setSpecialty(e.target.value)} placeholder="Especialidade" required /> */}
                                     </div>
                                     <div className="col-3 position-relative">
-                                        <dt className='p-2'>👤 Senha:</dt>
-                                        <input type={visible ? "text" : "password"} placeholder="Senha"
-                                            className="form-control"
-                                            onChange={(e) => setPassword(e.targevalue)} />
+                                        <dt className='p-2'>👤 Senha</dt>
+                                        <input className='form-control'
+                                            type={visible ? "text" : "password"}
+                                            //  type="password" 
+                                            value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" required />
                                         <i
                                             className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute me-2`}
                                             onClick={() => setVisible(!visible)}
@@ -138,97 +139,17 @@ function TecnicoRegister() {
                                             }}
                                         ></i>
                                     </div>
-                                </div>
-                                <div className="row justify-content-end px-2 pb-3">
-                                    <div className="col-3 d-flex align-items-end justify-content-end">
-                                        <div className="justify-content-around me-3">
-                                            <button onClick={() => ExecuteAccount(id_tecnico)}
-                                                className="btn btn-sm btn-primary mx-2">
-                                                Salvar
-                                            </button>
-                                        </div>
+                                    <div className="col-2 d-flex align-items-end justify-content-center">
+                                        <button type="submit" className="btn btn-sm btn-primary mx-2">Cadastrar</button>
                                     </div>
                                 </div>
-                            </section >
+                                {msg && <p style={{ color: "red" }}>{msg}</p>}
                         </div>
-                    </div>
-                </div >
-
-
-                {/* {tecnicos?.map((t) => {
-                        return (
-                            <>
-                                <form className="mt-4" key={id_tecnico}>
-                                    <div className="mb-3">
-                                        <label className="form-label">Nome do Técnico</label>
-                                        <input
-                                            type="text"
-                                            name="escola"
-                                            value={name}
-                                            className="form-control"
-                                            onChange={(e) => setName(e.targevalue)}
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Celular</label>
-                                        <input
-                                            type="tel"
-                                            name="Celular"
-                                            placeholder="Celular"
-                                            className="form-control"
-                                            onChange={(e) => setCel_phone(e.targevalue)}
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Endereço</label>
-                                        <input type="text" placeholder="Endereço"
-                                            value={endereco}
-                                            className="form-control"
-                                            onChange={(e) => setEndereco(e.targevalue)} />
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Skill</label>
-                                        <input type="text" placeholder="Skill"
-                                            className="form-control"
-                                            onChange={(e) => setSpecialty(e.targevalue)} />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">E-mail</label>
-                                        <input type="email" placeholder="E-mail"
-                                            value={email}
-                                            className="form-control"
-                                            onChange={(e) => setEmail(e.targevalue)} />
-                                    </div>
-                                    <div className="mt-2 position-relative">
-                                        <input type={visible ? "text" : "password"} placeholder="Senha"
-                                            className="form-control"
-                                            onChange={(e) => setPassword(e.targevalue)} />
-                                        <i
-                                            className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute`}
-                                            onClick={() => setVisible(!visible)}
-                                            style={{
-                                                fontSize: "1.3rem",
-                                                top: "50%",
-                                                right: "15px",
-                                                transform: "translateY(-50%)",
-                                                cursor: "pointer",
-                                                color: "#7b7e80"
-                                            }}
-                                        ></i>
-                                    </div>
-
-                                    <div className="mt-3 mb-2">
-                                        <button onClick={ExecuteAccount} className="btn btn-primary button-login p-2 w-100" type="button">
-                                            Cadastrar técnico
-                                        </button>
-                                    </div>
-                                </form>
-                            </>
-                        )
-                    })} */}
+                    </section>
+                </div>
             </div>
-            {/* </div > */}
+        </div >
+            </form >
         </>
     )
 }
