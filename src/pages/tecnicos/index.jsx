@@ -8,13 +8,13 @@ import api from '../../api/api';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { confirmAlert } from 'react-confirm-alert'
 import './style.css'
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 function TecnicosComponent() {
     const navigate = useNavigate();
     const { user } = useAuth();
     const [tecnicos, setTecnicos] = useState([]);
-    const [idTecnico, setIdTecnico] = useState();
+    const [idTecnico, setIdTecnico] = useState("");
     const [services, setServices] = useState([])
 
     async function LoadTecnicos() {
@@ -23,10 +23,9 @@ function TecnicosComponent() {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
 
-            if (response?.data) {
+            if (response.data) {
                 setTecnicos(response.data)
-                setIdTecnico(response.data.id_tecnico)
-               }
+            }
         } catch (error) {
             if (error.response?.data.error)
                 console.log(error.response.data.error);
@@ -35,14 +34,17 @@ function TecnicosComponent() {
 
     async function LoadServices(id) {
         if (!id) {
+            console.log("Não puxou os services");
             return;
         }
         try {
             const response = await api.get("/tecnicos/" + id + "/services", {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
+
             if (response?.data) {
                 setServices(response.data);
+                console.log("Puxou os services");
             }
         } catch (error) {
             if (error.response?.data.error) {
@@ -71,7 +73,7 @@ function TecnicosComponent() {
                         <h1>Exclusão</h1>
                         <p>Confirma exclusão desse agendamento?</p>
                         <div className="button-container">
-                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteAppointment(id_appointment); onClose(); }}>Sim</button>
+                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteTecnico(id_tecnico); onClose(); }}>Sim</button>
                             <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
                         </div>
                     </div>
@@ -86,10 +88,10 @@ function TecnicosComponent() {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
             if (response?.data) {
-                toast("Agendamento excluído com sucesso!")
+                toast.success("Técnico excluído com sucesso!")
                 setTimeout(() => {
-                    LoadAppointments();
-                }, 5000);
+                    LoadTecnicos();
+                }, 3000);
             }
 
         } catch (error) {
@@ -107,9 +109,8 @@ function TecnicosComponent() {
 
     useEffect(() => {
         LoadTecnicos();
-        setIdTecnico(1)
+        // setIdTecnico()
     }, [])
-
     useEffect(() => {
         LoadServices(idTecnico);
     }, [idTecnico]);
@@ -172,7 +173,7 @@ function TecnicosComponent() {
                                                             className="btn btn-sm btn-primary mx-2">
                                                             <i className="bi bi-pencil-square"></i>
                                                         </button>
-                                                        <button onClick={() => clickDelete(t.id_tecnico)}
+                                                        <button onClick={() => ClickDelete(t.id_tecnico)}
                                                             className="btn btn-sm btn-danger">
                                                             <i className="bi bi-trash"></i>
                                                         </button>
