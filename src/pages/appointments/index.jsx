@@ -162,8 +162,8 @@
 
               {/* Tabela adaptada */}
               <div className="table-responsive shadow-table bd-table">
-              <table className="table table-hover  rounded">
-                <thead>
+              <table className="table table-hover rounded">
+                <thead className='title-table'>
                   <tr className="border">
                     <th scope="col" className="h5">Cliente</th>
                     <th scope="col" className="h5">Técnico</th>

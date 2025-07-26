@@ -106,11 +106,11 @@ function TecnicoRegister() {
                                         <input className='form-control' type="text" value={cel_phone} onChange={(e) => setCelPhone(e.target.value)} placeholder="Celular" required />
                                     </div>
                                     <div className="row px-2 mb-3 justify-content-around">
-                                        <div className="col-4">
+                                        <div className="col-auto">
                                             <dt className='p-2'>👤 E-mail</dt>
                                             <input className='form-control' type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
                                         </div>
-                                        <div className="col-3">
+                                        <div className="col-auto">
                                             <dt className='p-2'>👤 Função</dt>
                                             <select className='form-control' name="tecnico" id="tecnico" onChange={ChangeFuncao}>
                                                 <option value="">Escolha uma função...</option>
@@ -120,7 +120,7 @@ function TecnicoRegister() {
                                         </select>
                                         {/* <input className='form-control' type="text" value={specialty} onChange={(e) => setSpecialty(e.target.value)} placeholder="Especialidade" required /> */}
                                     </div>
-                                    <div className="col-3 position-relative">
+                                    <div className="col-auto position-relative">
                                         <dt className='p-2'>👤 Senha</dt>
                                         <input className='form-control'
                                             type={visible ? "text" : "password"}
@@ -139,8 +139,8 @@ function TecnicoRegister() {
                                             }}
                                         ></i>
                                     </div>
-                                    <div className="col-2 d-flex align-items-end justify-content-center">
-                                        <button type="submit" className="btn btn-sm btn-primary mx-2">Cadastrar</button>
+                                    <div className="col-auto d-flex align-items-end justify-content-center">
+                                        <button type="submit" className="btn button-send mb-1 btn-sm btn-primary mx-2">Cadastrar</button>
                                     </div>
                                 </div>
                                 {msg && <p style={{ color: "red" }}>{msg}</p>}

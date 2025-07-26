@@ -51,6 +51,10 @@
     -moz-box-shadow: 10px 12px 36px -7px rgba(0, 0, 0, 0.67);
     margin-bottom: 2rem!important;
 }
+thead .title-table{
+    border-radius: 12px 12px 0 0;
+background: linear-gradient(90deg, rgba(30, 91, 115, 1) 0%, rgba(68, 158, 106, 1) 50%, rgba(83, 237, 211, 1) 100%)!important;
+}
 
 @media (max-width: 576px) {
     h2 {
