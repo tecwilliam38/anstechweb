@@ -11,6 +11,7 @@ import Appointments from './pages/appointments';
 import TecnicosComponent from './pages/tecnicos';
 import RegisterTecnicoComponent from './pages/register';
 import AppointmentAdd from './pages/appointment-add/appointment-add';
+import TecnicoRegister from './pages/tecnicos/register';
 
 
 function Rotas() {
@@ -24,7 +25,7 @@ function Rotas() {
                 <Route path="/appointments/add" element={<AppointmentAdd />} />
                 <Route path="/appointments/edit/:id_appointment" element={<AppointmentAdd />} />
                 <Route path="/appointments/tecnicos" element={<TecnicosComponent />} />
-                <Route path="/cadastro/tecnicos" element={<RegisterTecnicoComponent />} />
+                <Route path="/cadastro/tecnicos" element={<TecnicoRegister />} />
                 <Route path="/register/edit/:id_tecnico" element={<RegisterTecnicoComponent />} />                
             </Route>
         </Routes>

@@ -7,11 +7,11 @@ import "./style.css"
 import { toast } from 'react-toastify';
 
 
-function RegisterTecnicoComponent() {
+function TecnicoRegister() {
     const navigate = useNavigate()
-    const [name, setName] = useState()
-    const [cel_phone, setCel_phone] = useState();
-    const [endereco, setEndereco] = useState();
+    const [name, setName] = useState("")
+    const [cel_phone, setCel_phone] = useState("");
+    const [endereco, setEndereco] = useState("");
     const [email, setEmail] = useState("")
     const [specialty, setSpecialty] = useState("");
     const [password, setPassword] = useState("");
@@ -23,25 +23,6 @@ function RegisterTecnicoComponent() {
 
     const { id_tecnico } = useParams()
 
-    async function LoadTecnicos(id) {
-        try {
-            const response = await api.get("/tecnicos/listar" + id, {
-                headers: { Authorization: `Bearer ${user.token}` }
-            });
-
-            if (response?.data) {
-                setName(response.dada.name)
-                setEndereco(response.data.endereco)
-                // setTecnicos(response.data)
-            }
-        } catch (error) {
-            if (error.response?.data.error)
-                console.log(error.response.data.error);
-        }
-    }
-    useEffect(() => {
-        LoadTecnicos();
-    }, []);
 
     async function ExecuteAccount(e) {
         e.preventDefault();
@@ -56,14 +37,17 @@ function RegisterTecnicoComponent() {
         }
         try {
 
-            const response = id_tecnico > 0 ?
-                await api.put("/tecnicos/" + id_tecnico, json, {
-                    headers: { Authorization: `Bearer ${user.token}` }
-                })
-                :
-                await api.post("/tecnicos/register", json, {
-                    headers: { Authorization: `Bearer ${user.token}` }
-                });
+            // const response = id_tecnico > 0 ?
+            //     await api.put("/tecnicos/" + id_tecnico, json, {
+            //         headers: { Authorization: `Bearer ${user.token}` }
+            //     })
+            //     :
+            //     await api.post("/tecnicos/register", json, {
+            //         headers: { Authorization: `Bearer ${user.token}` }
+            //     });
+            const response = await api.post("/tecnicos/register", json, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
             console.log(id_tecnico);
             if (response.data?.id_tecnico) {
                 toast("Técnico cadastrado com sucesso!")
@@ -87,25 +71,18 @@ function RegisterTecnicoComponent() {
         <>
             <Navbar />
             <div className="container-fluid justify-content-center align-items-center mt-page">
-                {/* <div className="container card-shadow border p-3"> */}
-
-                {/* {tecnicos?.map((ts)=>{
-                        return<div key={ts.id_tecnico}>{ts.name}</div>
-                        })} */}
                 <div className="container-fluid topo-tecnicos">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
                             <section className="col-12 border bg-form my-2 ">
-                                {
-                                    id_tecnico > 0 ? <h3>📄 Editar Técnico</h3> : <h3 className='text-light p-2 card-title'>📄 Ficha de Cadastro de Técnicos</h3>
-                                }
-                                <div className="row ps-4 py-2 h4 text-light">{name}</div>
+                                <h3 className='text-light p-2 card-title'>📄 Ficha de Cadastro de Técnicos</h3>
                                 <div className="row px-2">
                                     <div className="col-3">
                                         <dt className='p-2'>👤 Nome:</dt>
                                         <input
                                             type="text"
-                                            name="escola"
+                                            placeholder='Nome do Técnico'
+
                                             value={name}
                                             className="form-control"
                                             onChange={(e) => setName(e.targevalue)}
@@ -136,26 +113,39 @@ function RegisterTecnicoComponent() {
                                             onChange={(e) => setCel_phone(e.targevalue)}
                                         />
                                     </div>
-                                </div>
-                                <div className="row justify-content-between px-2 pb-3">
                                     <div className="col-3">
                                         <dt className='p-2'>👤 Função</dt>
-                                       <input type="text" placeholder="Skill"
-                                       value={specialty}
+                                        <input type="text" placeholder="Skill"
+                                            value={specialty}
                                             className="form-control"
                                             onChange={(e) => setSpecialty(e.targevalue)} />
                                     </div>
+                                    <div className="col-3 position-relative">
+                                        <dt className='p-2'>👤 Senha:</dt>
+                                        <input type={visible ? "text" : "password"} placeholder="Senha"
+                                            className="form-control"
+                                            onChange={(e) => setPassword(e.targevalue)} />
+                                        <i
+                                            className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute me-2`}
+                                            onClick={() => setVisible(!visible)}
+                                            style={{
+                                                fontSize: "1.3rem",
+                                                top: "75%",
+                                                right: "15px",
+                                                transform: "translateY(-50%)",
+                                                cursor: "pointer",
+                                                color: "#7b7e80"
+                                            }}
+                                        ></i>
+                                    </div>
+                                </div>
+                                <div className="row justify-content-end px-2 pb-3">
                                     <div className="col-3 d-flex align-items-end justify-content-end">
                                         <div className="justify-content-around me-3">
                                             <button onClick={() => ExecuteAccount(id_tecnico)}
-                                                    className="btn btn-sm btn-primary mx-2">
-                                                  Salvar  {/* <i className="bi bi-pencil-square"></i> */}
-                                                </button>
-                                                {/* <button onClick={() => clickDelete(id_tecnico)}
-                                                    className="btn btn-sm btn-danger">
-                                                    
-                                                    <i className="bi bi-trash"></i>
-                                                </button> */}
+                                                className="btn btn-sm btn-primary mx-2">
+                                                Salvar
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -243,4 +233,4 @@ function RegisterTecnicoComponent() {
     )
 }
 
-export default RegisterTecnicoComponent
+export default TecnicoRegister
