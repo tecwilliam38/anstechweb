@@ -185,6 +185,7 @@ function AppointmentAdd() {
             <Navbar />
             <div className="container-fluid mb-5 my-4">
                 <div className="row col-lg-8 margin-form border offset-lg-2 rounded shadow-lg px-4 py-3">
+                {/* <div className="row justify-content-between"> */}
                     <div className="col-12 mt-1 text-center">
                         <h2>
                             {
