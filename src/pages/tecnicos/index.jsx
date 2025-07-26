@@ -120,7 +120,7 @@ function TecnicosComponent() {
             <div className="container-fluid mt-add">
                 <ToastContainer
                     className='Toastify__toast-body'
-                    autoClose={5000}
+                    autoClose={2000}
                     closeOnClick
                     position="top-center" />
                 <Navbar />

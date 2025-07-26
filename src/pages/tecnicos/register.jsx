@@ -77,7 +77,7 @@ function TecnicoRegister() {
         <>
             <ToastContainer
                 className="Toastify__toast-body"
-                autoClose={5000}
+                autoClose={3000}
                 closeOnClick
                 position="top-center"
             />
