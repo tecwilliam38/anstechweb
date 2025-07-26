@@ -154,15 +154,15 @@ function AppointmentAdd() {
                  }, 6000))
              }
         } catch (error) {
-        //     if (error.response?.data.error) {
-        //         if (error.response.status == 401)
-        //             alert("erro 401");
-        //         return navigate("/");
+            if (error.response?.data.error) {
+                if (error.response.status == 401)
+                    alert("erro 401");
+                return navigate("/");
 
-        //         alert(error.response?.data.error);
-        //     }
-        //     else
-        //         alert("Erro ao salvar dados");
+                alert(error.response?.data.error);
+            }
+            else
+                alert("Erro ao salvar dados");
         }
     }
 
