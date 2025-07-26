@@ -118,50 +118,51 @@ function Appointments() {
     LoadTecnicos();
     LoadAppointments();
   }, []);
-  
+
   function ChangeTecnico(e) {
     setIdTecnico(e.target.value);
   }
 
   return (
-    <div className="container-fluid mt-page">
-      <ToastContainer
-        className='Toastify__toast-body'
-        autoClose={5000}
-        closeOnClick
-        position="top-center" />
-      <Navbar />
-      <div className="row  justify-content-between">
-        <div className="col-10 mx-auto my-1">
-          <div className="d-flex justify-content-between align-items-center mb-4 mt-5 p-2">
-            <div>
-              <h2 className="d-inline me-5 h4 text-dark">Agendamentos</h2>
-              <Link to="/appointments/add" className="btn btn-outline-primary">Novo Agendamento </Link>
-            </div>
-            {/* Campo de filtro inicio */}
-            <div className="d-flex nav-right justify-content-end">
-              <input id="startDate" className="form-control" type="date"
-                onChange={(e) => setDtStart(e.target.value)} />
-              <span className="m-2">Até</span>
-              <input id="endtDate" className="form-control" type="date"
-                onChange={(e) => setDtEnd(e.target.value)} />
-              <div className="form-control ms-2 me-2">
-                <select name="tecnico" id="tecnico" value={idTecnico} onChange={ChangeTecnico}>
-                  <option value="">Todos os Técnicos</option>
-                  {tecnicos?.map((t) => {
-                    return <option key={t.id_tecnico} value={t.id_tecnico}>
-                      {t.name}
-                    </option>
-                  })}
-                </select>
-              </div>
-              <button onClick={LoadAppointments} className="btn btn-outline-secondary" type="button">Filtrar</button>
-            </div>
-            {/* Campo de filtro final */}
-          </div>
-          <table className="table table-hover shadow rounded">
-            <thead>
-              <tr className="border">
+    <>
+      <div className="container-fluid mt-page">
+  <ToastContainer
+    className="Toastify__toast-body"
+    autoClose={5000}
+    closeOnClick
+    position="top-center"
+  />
+  <Navbar />
+  <div className="row">
+    <div className="col-12 col-md-10 mx-auto my-1">
+      <div className="d-flex flex-wrap justify-content-between align-items-center mb-4 mt-5 p-2">
+        <div className="col-12 col-md-6 mb-2">
+          <h2 className="d-inline me-3 h5 text-dark">Agendamentos</h2>
+          <Link to="/appointments/add" className="btn btn-outline-primary btn-sm">
+            Novo Agendamento
+          </Link>
+        </div>
+
+        {/* Filtro responsivo */}
+        <div className="d-flex flex-wrap justify-content-end gap-2">
+          <input id="startDate" className="form-control" type="date" onChange={(e) => setDtStart(e.target.value)} />
+          <span className="align-self-center">Até</span>
+          <input id="endtDate" className="form-control" type="date"    onChange={(e) => setDtEnd(e.target.value)} />
+          <select id="tecnico" className="form-select" value={idTecnico} onChange={ChangeTecnico}>
+            <option value="">Todos os Técnicos</option>
+            {tecnicos?.map(t => <option key={t.id_tecnico} value={t.id_tecnico}>{t.name}</option>)}
+          </select>
+          <button onClick={LoadAppointments} className="btn btn-outline-secondary btn-sm">
+            Filtrar
+          </button>
+        </div>
+      </div>
+
+      {/* Tabela adaptada */}
+      <div className="table-responsive">
+        <table className="table table-hover shadow rounded">
+          <thead>
+             <tr className="border">
                 <th scope="col" className="h5">Cliente</th>
                 <th scope="col" className="h5">Técnico</th>
                 <th scope="col" className="h5">Serviço</th>
@@ -171,9 +172,9 @@ function Appointments() {
                 <th scope="col" className="h5 text-end">Competências</th>
                 <th scope="col" className="col-buttons"></th>
               </tr>
-            </thead>
-            <tbody>
-              {appointments?.map((ap) => {
+          </thead>
+          <tbody>
+             {appointments?.map((ap) => {
                 return (<Appointment
                   key={ap.id_appointment}
                   id_appointment={ap.id_appointment}
@@ -190,12 +191,13 @@ function Appointments() {
                 />
                 )
               })}
-            </tbody>
-          </table>
-
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
+</div>
+    </>
   )
 }
 

@@ -22,6 +22,7 @@ function Rotas() {
             <Route element={<ProtectedRoute />}>
                 <Route path="/appointments" element={<Appointments />} />
                 <Route path="/appointments/add" element={<AppointmentAdd />} />
+                <Route path="/appointments/edit/:id_appointment" element={<AppointmentAdd />} />
                 <Route path="/appointments/tecnicos" element={<TecnicosComponent />} />
                 <Route path="/cadastro/tecnicos" element={<RegisterTecnicoComponent />} />
                 <Route path="/register/edit/:id_tecnico" element={<RegisterTecnicoComponent />} />                

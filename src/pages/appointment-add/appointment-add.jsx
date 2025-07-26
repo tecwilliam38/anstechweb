@@ -73,82 +73,87 @@ function AppointmentAdd() {
         }
     }
     async function LoadAppointment(id) {
-        // try {
-        //     const response = await api.get("/appointments/listar/" + id, {
-        //         headers: { Authorization: `Bearer ${user.token}` }
-        //     });
-        //     if (response?.data) {
-        //         setIdClients(response.data.id_client);
-        //         setIdTecnico(response.data.id_tecnico);
-        //         setIdService(response.data.id_service);
-        //         setStatus(response.data.status);
-        //         setBookingDate(response.data.booking_date);
-        //         setBookingHour(response.data.booking_hour);
-        //     }
+        try {
+            const response = await api.get("/appointments/listar/" + id, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            if (response?.data) {
+                setIdClients(response.data.id_client);
+                setIdTecnico(response.data.id_tecnico);
+                setIdService(response.data.id_service);
+                setStatus(response.data.status);
+                setBookingDate(response.data.booking_date);
+                setBookingHour(response.data.booking_hour); 
+            }
 
-        // } catch (error) {
-        //     if (error.response?.data.error) {
-        //         if (error.response.status == 401)
-        //     alert(error.response?.data.error);
-        //     }
-        //     else
-        //         alert("Erro ao listar serviços");
-        //   }
+        } catch (error) {
+            if (error.response?.data.error) {
+                if (error.response.status == 401)
+            alert(error.response?.data.error);
+            }
+            else
+                alert("Erro ao listar serviços");
+          }
     }
 
     async function LoadServices(id) {
 
-        // if (!id)
-        //     return;
-        // try {
-        //     const response = await api.get("/tecnicos/" + id + "/services", {
-        //         headers: { Authorization: `Bearer ${user.token}` }
-        //     });
+        if (!id)
+            return;
+        try {
+            const response = await api.get("/tecnicos/" + id + "/services", {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
 
-        //     if (response.data) {
-        //         setServices(response.data);                
-        //     }
+            if (response.data) {
+                setServices(response.data);
+            }
 
-        // } catch (error) {
-        //     if (error.response?.data.error) {
-        //         if (error.response.status == 401)
-        //             return navigate("/");
+        } catch (error) {
+            if (error.response?.data.error) {
+                if (error.response.status == 401)
+                    return navigate("/");
 
-        //         alert(error.response?.data.error);
-        //     }
-        //     else
-        //         alert("Erro ao listar Serviços");
-        // }
+                alert(error.response?.data.error);
+            }
+            else
+                alert("Erro ao listar Serviços");
+        }
     }
 
     async function SaveAppointment() {
-        // const json = {
-        //     id_client: idClients,
-        //     id_tecnico: idTecnico,
-        //     id_service: idService,
-        //     status,
-        //     booking_date: bookingDate,
-        //     booking_hour: bookingHour
-        // };
+        const json = {
+            id_client: idClients,
+            id_tecnico: idTecnico,
+            id_service: idService,
+            status,
+            booking_date: bookingDate,
+            booking_hour: bookingHour
+        };
 
-        // try {
-        //     const response = id_appointment > 0 ?
-        //         await api.put("/appointments/edit/" + id_appointment, json, {
-        //             headers: { Authorization: `Bearer ${user.token}` }
-        //         })
-        //         :
-        //         await api.post("/appointments/insert", json, {
-        //             headers: { Authorization: `Bearer ${user.token}` }
-        //         });
+        try {
+            const response = id_appointment > 0 ?
+                await api.put("/appointments/edit/" + id_appointment, json, {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                })
+                :
+                await api.post("/appointments/insert", json, {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                });
 
-        //     // if (response.data) {
-        //     if (response.data?.id_appointment) {
-        //         toast("Agendamento realizado com sucesso!")
-        //         setTimeout(() => {
-        //             navigate("/appointments");
-        //         }, 3000);
-        //     }
-        // } catch (error) {
+            // if (response.data) {
+            if (response.data?.id_appointment) {
+                toast("Agendamento realizado com sucesso!")
+                setTimeout(() => {
+                    navigate("/appointments");
+                }, 3000);
+            }    else {
+                toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
+                 setTimeout(() => {
+                     setBookingDate(""), setBookingHour("")                    
+                 }, 6000))
+             }
+        } catch (error) {
         //     if (error.response?.data.error) {
         //         if (error.response.status == 401)
         //             alert("erro 401");
@@ -158,7 +163,7 @@ function AppointmentAdd() {
         //     }
         //     else
         //         alert("Erro ao salvar dados");
-        // }
+        }
     }
 
     useEffect(() => {
@@ -217,9 +222,91 @@ function AppointmentAdd() {
                             </select>
                         </div>
                     </div>
+                    <div className="col-12 mt-2">
+                        <label htmlFor="service" className="form-label">Serviço</label>
+                        <div className="form-control mb-2">
+                            <select name="service" id="service"
+                                value={idService} onChange={(e) => setIdService(e.target.value)}
+                            >
+                                <option value="0">Selecione o serviço</option>
+                                {services?.map(s => {
+                                    return <option key={s.id_service}
+                                        value={s.id_service}>{s.description}</option>
+                                })}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row justify-content-around">
+                        <div className="col-4 mt-2">
+                            <label htmlFor="bookingDate" className="form-label">Data para o agendamento:</label>
+                            <input type="date" className="form-control" name="bookingDate" id="bookingDate"
+                                value={bookingDate}
+                                onChange={(e) => setBookingDate(e.target.value)}
+                            />
+                        </div>
+                        <div className="col-4 mt-2">
+                            <label htmlFor="bookingHour" className="form-label">Horário</label>
+                            <div className="form-control mb-2">
+                                <select name="bookingHour" id="bookingHour"
+                                    value={bookingHour} onChange={(e) => setBookingHour(e.target.value)} >
+                                    <option value="00:00">Horário</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="09:30">09:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:00">Almoço</option>
+                                    <option value="11:30">Almoço</option>
+                                    <option value="12:00">Almoço</option>
+                                    <option value="12:30">Almoço</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="18:30">18:30</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-4 mt-2">
+                            <label htmlFor="bookingHour" className="form-label">Status</label>
+                            <div className="form-control mb-2">
+                                <select name="bookingHour" id="bookingHour"
+                                    value={status} onChange={(e) => setStatus(e.target.value)} >
+                                    <option value="Status">Status</option>
+                                    <option value="Agendado">Agendado</option>
+                                    <option value="Em andamento">Em andamento</option>
+                                    <option value="Em deslocamento">Em deslocamento</option>
+                                    <option value="No cliente">No cliente</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                    <option value="Finalizado">Finalizado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="col-12 mt-3">
+                            <div className="d-flex justify-content-end">
+                                <Link to="/appointments"
+                                    className="btn btn-outline-primary me-3">
+                                    Cancelar
+                                </Link>
+                                <button
+                                    onClick={SaveAppointment}
+                                    className="btn btn-primary" type="button">
+                                    Salvar Dados
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     </>
 }
 
