@@ -17,17 +17,25 @@ function TecnicosComponent() {
     const [tecnicos, setTecnicos] = useState([]);
     const [idTecnico, setIdTecnico] = useState("");
     const [services, setServices] = useState([])
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [password, setPassword] = useState("");
 
+    function ClickEdit(id_tecnico) {
+        navigate("/register/edit/" + 1, {
+            headers: { Authorization: `Bearer ${user.token}` }
+        })
+    }
     async function LoadTecnicos() {
         try {
             const response = await api.get("/tecnicos/listar", {
-                headers: { Authorization: `Bearer ${user.token}` }
+                headers: { Authorization: `Bearer ${user.token}` },
+                params: { id_tecnico: idTecnico, name, email, endereco, password }
             });
 
             if (response.data) {
                 setTecnicos(response.data)
-                console.log(idTecnico);
-                console.log("Id:",response.id_tecnico);
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -35,39 +43,8 @@ function TecnicosComponent() {
         }
     }
 
-    async function LoadServices(idTecnico) {
 
 
-        if (!idTecnico) {
-            console.log("Não puxou os services");
-            return;
-        }
-        try {
-            const response = await api.get("/tecnicos/" + idTecnico + "/services", {
-                headers: { Authorization: `Bearer ${user.token}` }
-            });
-
-            if (response?.data) {
-                setServices(response.data);
-                console.log("Puxou os services");
-            }
-        } catch (error) {
-            if (error.response?.data.error) {
-                if (error.response.status == 401)
-                    return navigate("/");
-
-                alert(error.response?.data.error);
-            }
-            else
-                alert("Erro ao listar Serviços");
-        }
-    }
-
-    function ClickEdit(id) {
-        navigate("/tecnicos/edit/" + id, {
-            headers: { Authorization: `Bearer ${user.token}` }
-        })
-    }
 
 
     function ClickDelete(id_tecnico) {
@@ -107,15 +84,14 @@ function TecnicosComponent() {
                 alert(error.response?.data.error);
             }
             else
-                alert("Erro ao excluir reserva");
+                alert("Erro ao excluir técnico");
         }
     }
 
 
     useEffect(() => {
         LoadTecnicos();
-        LoadServices(tecnicos.id_tecnico);
-    }, [tecnicos.id_tecnico])
+    }, [])
 
 
     return (
@@ -131,22 +107,18 @@ function TecnicosComponent() {
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
                             {tecnicos?.map((t) => {
-                                return (
-                                    <>
-                                      <Tecnico key={t.id_tecnico}
-                                      it_tecnico={t.id_tecnico}
-                                      name={t.name}
-                                      endereco={t.endereco}
-                                      cel_phone={t.cel_phone}
-                                      email={t.email}
-                                      password={t.password}
-                                      specialty={t.specialty}
-                                      skill={t.skill}
-                                      ClickEdit={ClickEdit}
-                                      ClickDelete={ClickDelete}
-                                      />
-                                    </>
-                                )
+                                return <Tecnico key={t.id_tecnico}
+                                    it_tecnico={t.id_tecnico}
+                                    name={t.name}
+                                    endereco={t.endereco}
+                                    cel_phone={t.cel_phone}
+                                    email={t.email}
+                                    password={t.password}
+                                    specialty={t.specialty}
+                                    skill={t.skill}
+                                    ClickEdit={ClickEdit}
+                                    ClickDelete={ClickDelete}
+                                />
                             })}
 
                         </div>

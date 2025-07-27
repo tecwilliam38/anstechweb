@@ -20,16 +20,21 @@ function TecnicosEditComponent(props) {
     const [specialty, setSpecialty] = useState("");
     const [password, setPassword] = useState("");
     const [msg, setMsg] = useState("");
+    const [tecnicos, setTecnicos] = useState([]);
+    const [idTecnico, setIdTecnico] = useState([]);
+
 
     async function LoadTecnicos() {
         try {
-            const response = await api.get("/tecnicos/listar", {
+            const response = await api.get("/tecnicos/listar/" + 1, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
 
             if (response?.data) {
                 setTecnicos(response.data)
-               }
+                console.log(response.data);
+                
+            }
         } catch (error) {
             if (error.response?.data.error)
                 console.log(error.response.data.error);
@@ -69,63 +74,15 @@ function TecnicosEditComponent(props) {
                 alert("Erro ao salvar dados");
         }
     }
-    function ClickEdit(id) {
-        navigate("/register/edit/" + id, {
-            headers: { Authorization: `Bearer ${user.token}` }
-        })
-    }
-
-
-    function ClickDelete(id_tecnico) {
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <div className='custom-ui'>
-                        <h1>Exclusão</h1>
-                        <p>Confirma exclusão desse agendamento?</p>
-                        <div className="button-container">
-                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteAppointment(id_appointment); onClose(); }}>Sim</button>
-                            <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
-                        </div>
-                    </div>
-                );
-            }
-        });
-    }
-
-    async function DeleteTecnico(id) {
-        try {
-            const response = await api.delete("/tecnicos/" + id, {
-                headers: { Authorization: `Bearer ${user.token}` }
-            });
-            if (response?.data) {
-                toast("Agendamento excluído com sucesso!")
-                setTimeout(() => {
-                    LoadAppointments();
-                }, 5000);
-            }
-
-        } catch (error) {
-            if (error.response?.data.error) {
-                if (error.response.status == 401)
-                    return navigate("/");
-
-                alert(error.response?.data.error);
-            }
-            else
-                alert("Erro ao excluir reserva");
-        }
-    }
 
 
     useEffect(() => {
         LoadTecnicos();
-        setIdTecnico(1)
     }, [])
 
-    useEffect(() => {
-        LoadServices(idTecnico);
-    }, [idTecnico]);
+    // useEffect(() => {
+    //     LoadServices(idTecnico);
+    // }, [idTecnico]);
 
     return (
         <>

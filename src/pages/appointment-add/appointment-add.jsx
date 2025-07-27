@@ -143,12 +143,12 @@ function AppointmentAdd() {
 
             // if (response.data) {
             if (response.data?.id_appointment) {
-                toast("Agendamento realizado com sucesso!")
+                toast.success("Agendamento realizado com sucesso!")
                 setTimeout(() => {
                     navigate("/appointments");
                 }, 3000);
             }    else {
-                toast("Data indisponível, selecione outro Horário ou dia por gentileza.",
+                toast.error("Data indisponível, selecione outro Horário ou dia por gentileza.",
                  setTimeout(() => {
                      setBookingDate(""), setBookingHour("")                    
                  }, 6000))
@@ -179,7 +179,7 @@ function AppointmentAdd() {
         <div className="container-fluid mt-add">
             <ToastContainer
                 className='Toastify__toast-body'
-                autoClose={5000}
+                autoClose={3000}
                 closeOnClick
                 position="top-center" />
             <Navbar />
