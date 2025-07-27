@@ -17,7 +17,7 @@ function ClientComponent() {
     const { user } = useAuth();
     const [clients, setClients] = useState([]);
     const [idClient, setIdClient] = useState("");
-    const [services, setServices] = useState([])
+    const [phoneContato, setPhoneContato] = useState([])
     const [clientName, setClientName] = useState("");
     const [email, setEmail] = useState("");
     const [enderecoRua, setEnderecoRua] = useState("");
@@ -68,9 +68,9 @@ function ClientComponent() {
                 return (
                     <div className='custom-ui'>
                         <h1>Exclusão</h1>
-                        <p>Confirma exclusão desse agendamento?</p>
+                        <p>Confirma exclusão desse cliente?</p>
                         <div className="button-container">
-                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteTecnico(id_client); onClose(); }}>Sim</button>
+                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteClient(id_client); onClose(); }}>Sim</button>
                             <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
                         </div>
                     </div>
@@ -79,13 +79,13 @@ function ClientComponent() {
         });
     }
 
-    async function DeleteTecnico(id) {
+    async function DeleteClient(id) {
         try {
-            const response = await api.delete("/tecnicos/" + id, {
+            const response = await api.delete("/clients/" + id, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
             if (response?.data) {
-                toast.success("Técnico excluído com sucesso!")
+                toast.success("Cliente excluído com sucesso!")
                 setTimeout(() => {
                     LoadClients();
                 }, 3000);
@@ -133,9 +133,10 @@ function ClientComponent() {
                                     contato={cl.phone_contato}
                                     status={cl.tarefa}
                                     docId={cl.inep}
+                                    ClickEdit={ClickEdit}
+                                    ClickDelete={ClickDelete}
                                 />
                             })}
-                            {/* <Client /> */}
                         </div>
                     </div>
                 </div >

@@ -36,10 +36,7 @@ function Navbar() {
                                     <Link className="nav-link" to="/appointments/tecnicos">Técnicos</Link>
                                 </li>
                                 <li className="nav-item menu-name">
-                                    <Link className="nav-link" user={user} to="/appointments/clients">Clientes</Link>
-                                </li>
-                                <li className="nav-item menu-name">
-                                    <Link className="nav-link" user={user} to="/cadastro/tecnicos">Cadastro de Técnicos</Link>
+                                    <Link className="nav-link" to="/appointments/clients">Clientes</Link>
                                 </li>
                                 <li className="nav-item menu-name"><Link className="nav-link" to="/appointments/profile">Meu Perfil</Link></li>
                                 <li><hr className="dropdown-divider" /></li>

@@ -99,7 +99,17 @@ function TecnicosComponent() {
                     closeOnClick
                     position="top-center" />
                 <Navbar />
-                <div className="container-fluid topo-tecnicos">
+                <div className="container col-10">
+                    <div className="row justify-content-between">
+                        <div className="h1 col-3">
+                            Técnicos
+                        </div>
+                        <button 
+                        onClick={() => navigate("/cadastro/tecnicos")} 
+                        className="btn me-2 col-3 btn-primary  button-login">Cadastrar novo Técnico</button>
+                    </div>
+                </div>
+                <div className="container-fluid ">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
                             {tecnicos.map((tec) => {
