@@ -12,7 +12,10 @@
   border: 1px solid #fff !important;
   padding: 10px;
 }
-
+.menu-name:hover{
+  background: #1e5b73;
+  background: linear-gradient(90deg, rgba(30, 91, 115, 1) 0%, rgba(68, 158, 106, 1) 50%, rgba(83, 237, 211, 1) 100%);
+}
 .nav-item a:active {
   color: #ffffff !important;
 }

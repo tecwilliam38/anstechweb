@@ -135,10 +135,10 @@ function TecnicosComponent() {
                                         <div className="col-6">
                                             <dt className='p-2'>👤 Atividades</dt>
                                             {/* {services.map((s) => {
-                        return <div className='border' key={s.id_service} value={s.id_service}>
-                            {s.description}
-                        </div>
-                    })} */}
+                                                return <div className='border' key={s.id_service} value={s.id_service}>
+                                                    {s.description}
+                                                </div>
+                                            })} */}
                                         </div>
                                         <div className="col-3 d-flex align-items-end justify-content-end">
                                             <div className="justify-content-around me-3">

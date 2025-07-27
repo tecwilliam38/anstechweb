@@ -4,6 +4,7 @@ import iconLogo from "../../assets/logoLogin.png"
 import { useAuth } from '../../context/authContext';
 import api from '../../api/api';
 import { useNavigate } from 'react-router-dom';
+import titleImage from "../../assets/logoAns.png"
 
 function SignIn() {
   const { login } = useAuth();

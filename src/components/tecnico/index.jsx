@@ -20,44 +20,6 @@ Tecnico.propTypes = {
 function Tecnico(props) {
     const { user } = useAuth();
 
-    // const [idTecnico, setIdTecnico] = useState();
-    // const [services, setServices] = useState([])
-
-
-    // async function LoadServices(idTecnico) {
-    //     if (!idTecnico) {
-    //         console.log("Não puxou os services");
-    //         return;
-    //     }
-    //     try {
-    //         const response = await api.get("/tecnicos/" + idTecnico + "/services", {
-    //             headers: { Authorization: `Bearer ${user.token}` }
-    //         });
-
-    //         if (response?.data) {
-    //             setServices(response.data);
-    //             console.log("Puxou os services");
-    //         }
-    //     } catch (error) {
-    //         if (error.response?.data.error) {
-    //             if (error.response.status == 401)
-    //                 return navigate("/");
-
-    //             alert(error.response?.data.error);
-    //         }
-    //         else
-    //             alert("Erro ao listar Serviços");
-    //     }
-    // }
-
-    // useEffect(() => {
-        // if (typeof props.id_tecnico === 'number') {
-        // }
-        // setIdTecnico(props.id_tecnico);
-        // console.log(idTecnico);
-        // LoadServices(idTecnico)
-    // }, [props.id_tecnico]);
-
 
     return <>
         <section className="col-12 border bg-form my-2 px-2" key={props.id_tecnico}>
