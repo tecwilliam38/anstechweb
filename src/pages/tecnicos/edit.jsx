@@ -4,9 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import './style.css'
 import api from '../../api/api';
+
 // css do confirm alert
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { confirmAlert } from 'react-confirm-alert'
 import './style.css'
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -62,9 +62,10 @@ function TecnicosEditComponent() {
             }
             else
                 alert("Erro ao salvar dados");
+            console.log(error);
+            
         }
     }
-
 
     useEffect(() => {
         LoadTecnicos();
