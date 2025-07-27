@@ -29,10 +29,10 @@ function ClientComponent() {
     const [docId, setDocId] = useState("");
 
     function ClickEdit(id_client) {
-        navigate("/register/edit/" + id_client, {
+        navigate("/appointments/clients/" + id_client, {
             headers: { Authorization: `Bearer ${user.token}` }
         })
-    }
+    }   
     async function LoadClients() {
         try {
             const response = await api.get("/client/listar", {
@@ -60,7 +60,7 @@ function ClientComponent() {
         }
     }
 
-    function ClickDelete(idClient) {
+    function ClickDelete(id_client) {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
@@ -68,7 +68,7 @@ function ClientComponent() {
                         <h1>Exclusão</h1>
                         <p>Confirma exclusão desse cliente?</p>
                         <div className="button-container">
-                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteClient(idClient); onClose(); }}>Sim</button>
+                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteClient(id_client); onClose(); }}>Sim</button>
                             <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ function ClientComponent() {
 
     async function DeleteClient(id) {
         try {
-            const response = await api.delete("/clients/" + id, {
+            const response = await api.delete("/client/delete/" + id, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
             if (response?.data) {

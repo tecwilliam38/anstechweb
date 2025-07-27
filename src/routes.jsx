@@ -14,6 +14,7 @@ import TecnicoRegister from './pages/tecnicos/register';
 import TecnicosEditComponent from './pages/tecnicos/edit';
 import ClientComponent from './pages/clients';
 import RegisterClient from './pages/clients/register';
+import ClientEditComponent from './pages/clients/edit';
 
 
 function Rotas() {
@@ -29,6 +30,7 @@ function Rotas() {
                 <Route path="/appointments/tecnicos" element={<TecnicosComponent />} />
                 <Route path="/cadastro/tecnicos" element={<TecnicoRegister />} />
                 <Route path="/appointments/clients" element={<ClientComponent />} />
+                <Route path="/appointments/clients/:id_client" element={<ClientEditComponent />} />
                 <Route path="/cadastro/clients" element={<RegisterClient/>} />
                 <Route path="/register/edit/:id_tecnico" element={<TecnicosEditComponent />} />                
             </Route>

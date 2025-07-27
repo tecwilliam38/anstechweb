@@ -199,7 +199,6 @@ function RegisterClient() {
                                                 <option value={"Ativo"} >Ativo</option>
                                                 <option value={"Inativo"} >Inativo</option>
                                             </select>
-
                                         </div>
                                         <div className="col-auto d-flex align-items-end justify-content-center">
                                             <button type="submit" onClick={ClientRegister} className="btn button-send mb-1 btn-sm btn-primary mx-2">Cadastrar</button>

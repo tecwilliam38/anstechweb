@@ -17,35 +17,36 @@ function ClientEditComponent() {
 
     const [msg, setMsg] = useState("");
 
+    console.log(id_client);
 
     // Tecnico data
+    const [client_name, setClient_name] = useState("");
     const [email, setEmail] = useState("");
-    const [idClient, setIdClient] = useState("");
-    const [services, setServices] = useState([])
-    const [clientName, setClientName] = useState("");
-    const [enderecoRua, setEnderecoRua] = useState("");
-    const [enderecoBairro, setEnderecoBairro] = useState("");
-    const [enderecoCidade, setEnderecoCidade] = useState("");
-    const [enderecoUf, setEnderecoUf] = useState("");
+    const [phone_contato, setPhone_contato] = useState([])
+    const [endereco_rua, setEndereco_rua] = useState("");
+    const [endereco_bairro, setEndereco_bairro] = useState("");
+    const [endereco_cidade, setEndereco_cidade] = useState("");
+    const [endereco_uf, setEndereco_uf] = useState("");
     const [password, setPassword] = useState("");
     const [task, setTask] = useState("");
-    const [docId, setDocId] = useState("");
+    const [doc_id, setDoc_id] = useState("");
 
-    async function LoadTecnicos() {
+
+    async function LoadClients() {
         try {
-            const response = await api.get("/tecnicos/listar/" + id_tecnico, {
+            const response = await api.get("/client/listar/" + id_client, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
-
             if (response.data) {
-                setClientName(response.data.client_name);
+                setClient_name(response.data.client_name);
                 setEmail(response.data.email);
-                setPhoneContato(response.data.phone_contato);
-                setEnderecoRua(response.data.endereco_rua);
-                setEnderecoBairro(response.data.endereco_bairro);
-                setEnderecoCidade(response.data.endereco_cidade);
-                setEnderecoUf(response.data.endereco_uf);
-                setSkill(response.data.skill)
+                setPhone_contato(response.data.phone_contato);
+                setEndereco_rua(response.data.endereco_rua);
+                setEndereco_bairro(response.data.endereco_bairro);
+                setEndereco_cidade(response.data.endereco_cidade);
+                setEndereco_uf(response.data.endereco_uf);
+                setDoc_id(response.data.inep)
+                setTask(response.data.tarefa)
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -53,23 +54,28 @@ function ClientEditComponent() {
         }
     }
 
-    async function SaveTecnico() {
+    async function SaveClient() {
         setMsg("");
         const json = {
-            name: name,
-            endereco: endereco,
-            cel_phone: cel_phone,
-            email: email
+            client_name,
+            phone_contato,
+            endereco_rua,
+            endereco_bairro,
+            endereco_cidade,
+            endereco_uf,
+            task,
+            doc_id,
+            email,
         }
         try {
-            const response = await api.put("/tecnicos/" + id_tecnico, json, {
+            const response = await api.put("/client/" + id_client, json, {
                 headers: { Authorization: `Bearer ${user.token}` }
             })
 
             if (response.data) {
-                toast.success("Tecnico atualizado com sucesso!")
+                toast.success("Cliente atualizado com sucesso!")
                 setTimeout(() => {
-                    navigate("/appointments/tecnicos");
+                    navigate("/appointments/clients");
                 }, 3000);
             }
         } catch (error) {
@@ -89,9 +95,41 @@ function ClientEditComponent() {
     }
 
     useEffect(() => {
-        LoadTecnicos();
+        LoadClients();
     }, [])
 
+    function ChangeStatus(e) {
+        setTask(e.target.value);
+    }
+    const ufs = [
+        { sigla: "AC", nome: "Acre" },
+        { sigla: "AL", nome: "Alagoas" },
+        { sigla: "AP", nome: "Amapá" },
+        { sigla: "AM", nome: "Amazonas" },
+        { sigla: "BA", nome: "Bahia" },
+        { sigla: "CE", nome: "Ceará" },
+        { sigla: "DF", nome: "Distrito Federal" },
+        { sigla: "ES", nome: "Espírito Santo" },
+        { sigla: "GO", nome: "Goiás" },
+        { sigla: "MA", nome: "Maranhão" },
+        { sigla: "MT", nome: "Mato Grosso" },
+        { sigla: "MS", nome: "Mato Grosso do Sul" },
+        { sigla: "MG", nome: "Minas Gerais" },
+        { sigla: "PA", nome: "Pará" },
+        { sigla: "PB", nome: "Paraíba" },
+        { sigla: "PR", nome: "Paraná" },
+        { sigla: "PE", nome: "Pernambuco" },
+        { sigla: "PI", nome: "Piauí" },
+        { sigla: "RJ", nome: "Rio de Janeiro" },
+        { sigla: "RN", nome: "Rio Grande do Norte" },
+        { sigla: "RS", nome: "Rio Grande do Sul" },
+        { sigla: "RO", nome: "Rondônia" },
+        { sigla: "RR", nome: "Roraima" },
+        { sigla: "SC", nome: "Santa Catarina" },
+        { sigla: "SP", nome: "São Paulo" },
+        { sigla: "SE", nome: "Sergipe" },
+        { sigla: "TO", nome: "Tocantins" },
+    ];
     return (
         <>
             <div className="container-fluid mt-add">
@@ -101,69 +139,118 @@ function ClientEditComponent() {
                     closeOnClick
                     position="top-center" />
                 <Navbar />
-                <div className="container-fluid topo-tecnicos">
+                <div className="container-fluid col-10 mt-page">
+                    <div className="row justify-content-between">
+                        <div className="h1 col-5">
+                            Editar Cliente
+                        </div>
+                    </div>
+                </div>
+                <div className="container-fluid">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
                             <section className="col-12 border bg-form my-2 px-2">
                                 <div className="row card-title ps-4 py-2 h4 text-light">
-                                    {name}
+                                    {client_name}
                                 </div>
-                                <div className="row">
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Nome</dt>
-                                        <input
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            placeholder="Nome do Usuário"
-                                            type="text"
-                                            className="form-control" />
-                                    </div>
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Email</dt>
-                                        <input
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="Email"
-                                            type="text"
-                                            className="form-control" />
-                                    </div>
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Celular</dt>
-                                        <input
-                                            value={cel_phone}
-                                            onChange={(e) => setCel_phone(e.target.value)}
-                                            placeholder="Celular com ddd"
-                                            type="text"
-                                            className="form-control" />
+                                <div className="row px-2">
+                                    <div className="row px-2 justify-content-between col-12 mx-auto">
+                                        <div className="col-3">
+                                            <dt className='p-2'>👤 Nome</dt>
+                                            <input
+                                                value={client_name}
+                                                onChange={(e) => setClient_name(e.target.value)}
+                                                placeholder="Nome do Usuário"
+                                                type="text"
+                                                className="form-control" />
+                                        </div>
+                                        <div className="col-3">
+                                            <dt className='p-2'>👤 Email</dt>
+                                            <input
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                placeholder="Email"
+                                                type="text"
+                                                className="form-control" />
+                                        </div>
+                                        <div className="col-3">
+                                            <dt className='p-2'>👤 Celular</dt>
+                                            <input
+                                                value={phone_contato}
+                                                onChange={(e) => setPhone_contato(e.target.value)}
+                                                placeholder="Celular com ddd"
+                                                type="text"
+                                                className="form-control" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="row justify-content-between pb-3">
-                                    <div className="col-6">
-                                        <dt className='p-2'>👤 Endereço</dt>
+                                <div className="row px-2 justify-content-between col-12 mx-auto">
+                                    <div className="col-auto">
+                                        <dt className='p-2'>👤 Endereço rua</dt>
                                         <input
-                                            value={endereco}
-                                            onChange={(e) => setEndereco(e.target.value)}
+                                            value={endereco_rua}
+                                            onChange={(e) => setEndereco_rua(e.target.value)}
                                             placeholder="Endereço"
                                             type="text"
                                             className="form-control" />
                                     </div>
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Função</dt>
+                                    <div className="col-auto">
+                                        <dt className='p-2'>👤 Endereço bairro</dt>
                                         <input
-                                            value={skill ?? ""}
-                                            // onChange={(e) => setTecnicos({ ...tecnicos, skill: e.target.value })}
+                                            value={endereco_bairro}
+                                            onChange={(e) => setEndereco_bairro(e.target.value)}
                                             placeholder="Endereço"
                                             type="text"
                                             className="form-control" />
                                     </div>
-
-                                    <div className="col-3 d-flex align-items-end justify-content-end">
-                                        <div className="justify-content-around me-3">
-                                            <button onClick={SaveTecnico}
-                                                className="btn button-send mb-1 btn-sm btn-primary mx-2">
-                                                Salvar
-                                                <i className="mx-1 bi bi-check-square-fill"></i>
-                                            </button>
+                                    <div className="col-auto">
+                                        <dt className='p-2'>👤 Endereço cidade'</dt>
+                                        <input
+                                            value={endereco_cidade}
+                                            onChange={(e) => setEndereco_cidade(e.target.value)}
+                                            placeholder="Endereço"
+                                            type="text"
+                                            className="form-control" />
+                                    </div>
+                                    <div className="row px-2 justify-content-between col-12 mx-auto mb-3">
+                                        <div className="col-auto">
+                                            <dt className='p-2'>👤 Número do cadastro</dt>
+                                            <input type="text" placeholder="Número do cliente"
+                                                value={doc_id}
+                                                className="form-control"
+                                                onChange={(e) => setDoc_id(e.target.value)} required />
+                                        </div>
+                                        <div className="col-auto">
+                                            <dt className='p-2'>👤 Endereço UF</dt>
+                                            <select
+                                                id="estado"
+                                                className='form-control'
+                                                value={endereco_uf}
+                                                onChange={(e) => setEndereco_uf(e.target.value)}
+                                            >
+                                                <option value="">Selecione um estado</option>
+                                                {ufs.map((uf) => (
+                                                    <option key={uf.sigla} value={uf.sigla}>
+                                                        {uf.nome}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                        <div className="col-auto">
+                                            <dt className='p-2'>👤 Status</dt>
+                                            <select className='form-control' name="tecnico"
+                                                value={task}
+                                                id="tecnico" onChange={ChangeStatus}>
+                                                <option value="">Escolha um status:</option>
+                                                <option value={"Ativo"} >Ativo</option>
+                                                <option value={"Inativo"} >Inativo</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-auto d-flex align-items-end justify-content-center mt-2">
+                                            <button type="submit"
+                                                onClick={SaveClient}
+                                                className="btn button-send mb-1 btn-sm btn-primary">Salvar</button>
+                                            <button type="button" onClick={() => navigate("/appointments/clients")} className="btn button-cancel mb-1 btn-sm btn-primary mx-2">Voltar</button>
                                         </div>
                                     </div>
                                 </div>
