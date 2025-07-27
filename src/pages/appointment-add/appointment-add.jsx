@@ -25,7 +25,6 @@ function AppointmentAdd() {
     const [bookingDate, setBookingDate] = useState("");
     const [bookingHour, setBookingHour] = useState("");
 
-    // const user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
     const { user } = useAuth();
 
     async function LoadClients() {
@@ -35,7 +34,7 @@ function AppointmentAdd() {
             });
             if (response.data) {
                 setClients(response.data);
-             }
+            }
 
         } catch (error) {
             if (error.response?.data.error) {
@@ -81,17 +80,17 @@ function AppointmentAdd() {
                 setIdService(response.data.id_service);
                 setStatus(response.data.status);
                 setBookingDate(response.data.booking_date);
-                setBookingHour(response.data.booking_hour); 
+                setBookingHour(response.data.booking_hour);
             }
 
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
-            alert(error.response?.data.error);
+                    alert(error.response?.data.error);
             }
             else
                 alert("Erro ao listar serviços");
-          }
+        }
     }
 
     async function LoadServices(id) {
@@ -138,19 +137,17 @@ function AppointmentAdd() {
                 await api.post("/appointments/insert", json, {
                     headers: { Authorization: `Bearer ${user.token}` }
                 });
-
-            // if (response.data) {
             if (response.data?.id_appointment) {
                 toast.success("Agendamento realizado com sucesso!")
                 setTimeout(() => {
                     navigate("/appointments");
                 }, 3000);
-            }    else {
+            } else {
                 toast.error("Data indisponível, selecione outro Horário ou dia por gentileza.",
-                 setTimeout(() => {
-                     setBookingDate(""), setBookingHour("")                    
-                 }, 6000))
-             }
+                    setTimeout(() => {
+                        setBookingDate(""), setBookingHour("")
+                    }, 6000))
+            }
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
@@ -183,7 +180,7 @@ function AppointmentAdd() {
             <Navbar />
             <div className="container-fluid mb-5 my-4">
                 <div className="row col-lg-8 margin-form border offset-lg-2 rounded shadow-lg px-4 py-3">
-                {/* <div className="row justify-content-between"> */}
+                    {/* <div className="row justify-content-between"> */}
                     <div className="col-12 mt-1 text-center">
                         <h2>
                             {

@@ -34,15 +34,15 @@ function TecnicosEditComponent() {
 
     async function SaveTecnico(id_tecnico) {
         setMsg("");
+        const json = {
+            name: tecnicos.name,
+            endereco: tecnicos.endereco,
+            cel_phone: tecnicos.cel_phone,
+            email: tecnicos.email,
+            specialty: tecnicos.skill
+        }
         try {
-            const response = await api.put("/tecnicos/" + id_tecnico, {
-                name,
-                endereco,
-                cel_phone,
-                email,
-                specialty,
-                password
-            }, {
+            const response = await api.put("/tecnicos/" + id_tecnico, json, {
                 headers: { Authorization: `Bearer ${user.token}` }
             })
 
@@ -139,18 +139,13 @@ function TecnicosEditComponent() {
                                         <div className="justify-content-around me-3">
                                             <button onClick={SaveTecnico}
                                                 className="btn button-send mb-1 btn-sm btn-primary mx-2">
-                                              Salvar
-                                              <i class="mx-1 bi bi-check-square-fill"></i>
-                                                {/* <i className="bi bi-pencil-square"></i> */}
+                                                Salvar
+                                                <i class="mx-1 bi bi-check-square-fill"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </section >
-                            {/* </>
-                                )
-                            })} */}
-
                         </div>
                     </div>
                 </div >
