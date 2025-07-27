@@ -12,7 +12,13 @@
 .button-login {
   background: #2A7B9B;
   border:0;
+  font-size: 20px;
   background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(83, 237, 211, 1) 100%);
+}
+.button-login:hover {
+  background: #2A7B9B;
+  border:0;
+  background: linear-gradient(90deg, rgba(83, 237, 211, 1) 100%,  rgba(87, 199, 133, 1) 50%, rgba(42, 123, 155, 1) 0%);
 }
 .logo-signin {
   background-image: url('../../assets/logo.png');
