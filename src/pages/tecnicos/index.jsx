@@ -9,6 +9,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { confirmAlert } from 'react-confirm-alert'
 import './style.css'
 import { toast, ToastContainer } from 'react-toastify';
+import Tecnico from '../../components/tecnico';
 
 function TecnicosComponent() {
     const navigate = useNavigate();
@@ -25,6 +26,8 @@ function TecnicosComponent() {
 
             if (response.data) {
                 setTecnicos(response.data)
+                console.log(idTecnico);
+                console.log("Id:",response.id_tecnico);
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -32,13 +35,15 @@ function TecnicosComponent() {
         }
     }
 
-    async function LoadServices(id) {
-        if (!id) {
+    async function LoadServices(idTecnico) {
+
+
+        if (!idTecnico) {
             console.log("Não puxou os services");
             return;
         }
         try {
-            const response = await api.get("/tecnicos/" + id + "/services", {
+            const response = await api.get("/tecnicos/" + idTecnico + "/services", {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
 
@@ -59,7 +64,7 @@ function TecnicosComponent() {
     }
 
     function ClickEdit(id) {
-        navigate("/register/edit/" + id, {
+        navigate("/tecnicos/edit/" + id, {
             headers: { Authorization: `Bearer ${user.token}` }
         })
     }
@@ -109,11 +114,9 @@ function TecnicosComponent() {
 
     useEffect(() => {
         LoadTecnicos();
-        // setIdTecnico()
-    }, [])
-    useEffect(() => {
-        LoadServices(idTecnico);
-    }, [idTecnico]);
+        LoadServices(tecnicos.id_tecnico);
+    }, [tecnicos.id_tecnico])
+
 
     return (
         <>
@@ -130,57 +133,18 @@ function TecnicosComponent() {
                             {tecnicos?.map((t) => {
                                 return (
                                     <>
-                                        <section className="col-12 border bg-form my-2 px-2" key={t.id_tecnico}>
-                                            <div className="row card-title ps-4 py-2 h4 text-light">{t.name}</div>
-                                            <div className="row">
-                                                <div className="col-3">
-                                                    <dt className='p-2'>👤 Email</dt>
-                                                    <div className="border p-2">
-                                                        {t.email}
-                                                    </div>
-                                                </div>
-                                                <div className="col-6">
-                                                    <dt className='p-2'>👤 Endereço</dt>
-                                                    <div className="border p-2">
-                                                        {t.endereco}
-                                                    </div>
-                                                </div>
-                                                <div className="col-3">
-                                                    <dt className='p-2'>👤 Celular</dt>
-                                                    <div className="border p-2">
-                                                        {t.cel_phone}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row justify-content-between pb-3">
-                                                <div className="col-3">
-                                                    <dt className='p-2'>👤 Função</dt>
-                                                    <div className="border p-2">
-                                                        {t.skill}
-                                                    </div>
-                                                </div>
-                                                <div className="col-6">
-                                                    <dt className='p-2'>👤 Atividades</dt>
-                                                    {services?.map((s) => {
-                                                        return <div className='border' key={s.id_service} value={s.id_service}>
-                                                            {s.description}
-                                                        </div>
-                                                    })}
-                                                </div>
-                                                <div className="col-3 d-flex align-items-end justify-content-end">
-                                                    <div className="justify-content-around me-3">
-                                                        <button onClick={() => ClickEdit(t.id_tecnico)}
-                                                            className="btn btn-sm btn-primary mx-2">
-                                                            <i className="bi bi-pencil-square"></i>
-                                                        </button>
-                                                        <button onClick={() => ClickDelete(t.id_tecnico)}
-                                                            className="btn btn-sm btn-danger">
-                                                            <i className="bi bi-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section >
+                                      <Tecnico key={t.id_tecnico}
+                                      it_tecnico={t.id_tecnico}
+                                      name={t.name}
+                                      endereco={t.endereco}
+                                      cel_phone={t.cel_phone}
+                                      email={t.email}
+                                      password={t.password}
+                                      specialty={t.specialty}
+                                      skill={t.skill}
+                                      ClickEdit={ClickEdit}
+                                      ClickDelete={ClickDelete}
+                                      />
                                     </>
                                 )
                             })}

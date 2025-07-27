@@ -9,9 +9,9 @@ import ProtectedRoute from './context/protectedRoute';
 import SignIn from './pages/signIn';
 import Appointments from './pages/appointments';
 import TecnicosComponent from './pages/tecnicos';
-import RegisterTecnicoComponent from './pages/register';
 import AppointmentAdd from './pages/appointment-add/appointment-add';
 import TecnicoRegister from './pages/tecnicos/register';
+import TecnicosEditComponent from './pages/tecnicos/edit';
 
 
 function Rotas() {
@@ -26,7 +26,7 @@ function Rotas() {
                 <Route path="/appointments/edit/:id_appointment" element={<AppointmentAdd />} />
                 <Route path="/appointments/tecnicos" element={<TecnicosComponent />} />
                 <Route path="/cadastro/tecnicos" element={<TecnicoRegister />} />
-                <Route path="/register/edit/:id_tecnico" element={<RegisterTecnicoComponent />} />                
+                <Route path="/register/edit/:id_tecnico" element={<TecnicosEditComponent />} />                
             </Route>
         </Routes>
     </BrowserRouter>

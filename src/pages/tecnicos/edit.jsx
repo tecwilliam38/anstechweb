@@ -8,14 +8,18 @@ import api from '../../api/api';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { confirmAlert } from 'react-confirm-alert'
 import './style.css'
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
-function TecnicosComponent() {
+function TecnicosEditComponent(props) {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const [tecnicos, setTecnicos] = useState([]);
-    const [idTecnico, setIdTecnico] = useState();
-    const [services, setServices] = useState([])
+    const [name, setName] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [cel_phone, setCelPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [specialty, setSpecialty] = useState("");
+    const [password, setPassword] = useState("");
+    const [msg, setMsg] = useState("");
 
     async function LoadTecnicos() {
         try {
@@ -25,39 +29,46 @@ function TecnicosComponent() {
 
             if (response?.data) {
                 setTecnicos(response.data)
-                setIdTecnico(response.data.id_tecnico)
-                console.log(response.data.id_tecnico);
-
-            }
+               }
         } catch (error) {
             if (error.response?.data.error)
                 console.log(error.response.data.error);
         }
     }
 
-    async function LoadServices(id) {
-        if (!id) {
-            return;
-        }
+    async function SaveTecnico() {
+        setMsg("");
         try {
-            const response = await api.get("/tecnicos/" + id + "/services", {
+            const response = await api.put("/appointments/edit/" + id_tecnico, {
+                name,
+                endereco,
+                cel_phone,
+                email,
+                specialty,
+                password
+            }, {
                 headers: { Authorization: `Bearer ${user.token}` }
-            });
-            if (response?.data) {
-                setServices(response.data);
+            })
+
+            // if (response.data?.id_appointment) {
+            if (response.data) {
+                toast.success("Tecnico atualizado com sucesso!")
+                setTimeout(() => {
+                    navigate("/appointments/tecnicos");
+                }, 3000);
             }
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
-                    return navigate("/");
+                    alert("erro 401");
+                return navigate("/");
 
                 alert(error.response?.data.error);
             }
             else
-                alert("Erro ao listar Serviços");
+                alert("Erro ao salvar dados");
         }
     }
-
     function ClickEdit(id) {
         navigate("/register/edit/" + id, {
             headers: { Authorization: `Bearer ${user.token}` }
@@ -170,11 +181,7 @@ function TecnicosComponent() {
                                                 </div>
                                                 <div className="col-3 d-flex align-items-end justify-content-end">
                                                     <div className="justify-content-around me-3">
-                                                        <button onClick={() => ClickEdit(t.id_tecnico)}
-                                                            className="btn btn-sm btn-primary mx-2">
-                                                            <i className="bi bi-pencil-square"></i>
-                                                        </button>
-                                                        <button onClick={() => clickDelete(t.id_tecnico)}
+                                                        <button onClick={SaveTecnico}
                                                             className="btn btn-sm btn-danger">
                                                             <i className="bi bi-trash"></i>
                                                         </button>
@@ -194,4 +201,4 @@ function TecnicosComponent() {
     )
 }
 
-export default TecnicosComponent
+export default TecnicosEditComponent
