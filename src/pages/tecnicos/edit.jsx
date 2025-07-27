@@ -13,9 +13,17 @@ import { toast, ToastContainer } from 'react-toastify';
 function TecnicosEditComponent() {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const [tecnicos, setTecnicos] = useState([]);
-    const [msg, setMsg] = useState("");
     const { id_tecnico } = useParams();
+
+    const [msg, setMsg] = useState("");
+
+
+    // Tecnico data
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [cel_phone, setCel_phone] = useState("")
+    const [skill, setSkill] = useState("")
 
     async function LoadTecnicos() {
         try {
@@ -24,7 +32,11 @@ function TecnicosEditComponent() {
             });
 
             if (response.data) {
-                setTecnicos(response.data)
+                setName(response.data.name);
+                setEmail(response.data.email);
+                setCel_phone(response.data.cel_phone);
+                setEndereco(response.data.endereco);
+                setSkill(response.data.skill)
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -32,14 +44,13 @@ function TecnicosEditComponent() {
         }
     }
 
-    async function SaveTecnico(id_tecnico) {
+    async function SaveTecnico() {
         setMsg("");
         const json = {
-            name: tecnicos.name,
-            endereco: tecnicos.endereco,
-            cel_phone: tecnicos.cel_phone,
-            email: tecnicos.email,
-            specialty: tecnicos.skill
+            name: name,
+            endereco: endereco,
+            cel_phone: cel_phone,
+            email: email
         }
         try {
             const response = await api.put("/tecnicos/" + id_tecnico, json, {
@@ -48,11 +59,12 @@ function TecnicosEditComponent() {
 
             if (response.data) {
                 toast.success("Tecnico atualizado com sucesso!")
-                setTimeout(() => {
-                    navigate("/appointments/tecnicos");
-                }, 3000);
+                    setTimeout(() => {
+                        navigate("/appointments/tecnicos");
+                    }, 3000);
             }
         } catch (error) {
+            console.log(error.data);
             if (error.response?.data.error) {
                 if (error.response.status == 401)
                     alert("erro 401");
@@ -61,9 +73,9 @@ function TecnicosEditComponent() {
                 alert(error.response?.data.error);
             }
             else
-                alert("Erro ao salvar dados");
+            alert("Erro ao salvar dados");
             console.log(error);
-            
+
         }
     }
 
@@ -85,23 +97,23 @@ function TecnicosEditComponent() {
                         <div className="col-10 mx-auto ">
                             <section className="col-12 border bg-form my-2 px-2">
                                 <div className="row card-title ps-4 py-2 h4 text-light">
-                                    {tecnicos.name}
+                                    {name}
                                 </div>
                                 <div className="row">
                                     <div className="col-3">
                                         <dt className='p-2'>👤 Nome</dt>
                                         <input
-                                            value={tecnicos.name}
-                                            onChange={(e) => setTecnicos({ ...tecnicos, name: e.target.value })}
-                                            placeholder="Email"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            placeholder="Nome do Usuário"
                                             type="text"
                                             className="form-control" />
                                     </div>
                                     <div className="col-3">
                                         <dt className='p-2'>👤 Email</dt>
                                         <input
-                                            value={tecnicos.email}
-                                            onChange={(e) => setTecnicos({ ...tecnicos, email: e.target.value })}
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
                                             placeholder="Email"
                                             type="text"
                                             className="form-control" />
@@ -109,9 +121,9 @@ function TecnicosEditComponent() {
                                     <div className="col-3">
                                         <dt className='p-2'>👤 Celular</dt>
                                         <input
-                                            value={tecnicos.cel_phone}
-                                            onChange={(e) => setTecnicos({ ...tecnicos, cel_phone: e.target.value })}
-                                            placeholder="Endereço"
+                                            value={cel_phone}
+                                            onChange={(e) => setCel_phone(e.target.value)}
+                                            placeholder="Celular com ddd"
                                             type="text"
                                             className="form-control" />
                                     </div>
@@ -120,8 +132,8 @@ function TecnicosEditComponent() {
                                     <div className="col-6">
                                         <dt className='p-2'>👤 Endereço</dt>
                                         <input
-                                            value={tecnicos.endereco}
-                                            onChange={(e) => setTecnicos({ ...tecnicos, endereco: e.target.value })}
+                                            value={endereco}
+                                            onChange={(e) => setEndereco(e.target.value)}
                                             placeholder="Endereço"
                                             type="text"
                                             className="form-control" />
@@ -129,8 +141,8 @@ function TecnicosEditComponent() {
                                     <div className="col-3">
                                         <dt className='p-2'>👤 Função</dt>
                                         <input
-                                            value={tecnicos.skill}
-                                            onChange={(e) => setTecnicos({ ...tecnicos, skill: e.target.value })}
+                                            value={skill ?? ""}
+                                            // onChange={(e) => setTecnicos({ ...tecnicos, skill: e.target.value })}
                                             placeholder="Endereço"
                                             type="text"
                                             className="form-control" />
@@ -141,7 +153,7 @@ function TecnicosEditComponent() {
                                             <button onClick={SaveTecnico}
                                                 className="btn button-send mb-1 btn-sm btn-primary mx-2">
                                                 Salvar
-                                                <i class="mx-1 bi bi-check-square-fill"></i>
+                                                <i className="mx-1 bi bi-check-square-fill"></i>
                                             </button>
                                         </div>
                                     </div>
