@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/navbar'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import './style.css'
 import api from '../../api/api';
@@ -10,30 +10,21 @@ import { confirmAlert } from 'react-confirm-alert'
 import './style.css'
 import { toast, ToastContainer } from 'react-toastify';
 
-function TecnicosEditComponent(props) {
+function TecnicosEditComponent() {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const [name, setName] = useState("");
-    const [endereco, setEndereco] = useState("");
-    const [cel_phone, setCelPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [specialty, setSpecialty] = useState("");
-    const [password, setPassword] = useState("");
-    const [msg, setMsg] = useState("");
     const [tecnicos, setTecnicos] = useState([]);
-    const [idTecnico, setIdTecnico] = useState([]);
-
+    const [msg, setMsg] = useState("");
+    const { id_tecnico } = useParams();
 
     async function LoadTecnicos() {
         try {
-            const response = await api.get("/tecnicos/listar/" + 1, {
+            const response = await api.get("/tecnicos/listar/" + id_tecnico, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
 
-            if (response?.data) {
+            if (response.data) {
                 setTecnicos(response.data)
-                console.log(response.data);
-                
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -41,10 +32,10 @@ function TecnicosEditComponent(props) {
         }
     }
 
-    async function SaveTecnico() {
+    async function SaveTecnico(id_tecnico) {
         setMsg("");
         try {
-            const response = await api.put("/appointments/edit/" + id_tecnico, {
+            const response = await api.put("/tecnicos/" + id_tecnico, {
                 name,
                 endereco,
                 cel_phone,
@@ -55,7 +46,6 @@ function TecnicosEditComponent(props) {
                 headers: { Authorization: `Bearer ${user.token}` }
             })
 
-            // if (response.data?.id_appointment) {
             if (response.data) {
                 toast.success("Tecnico atualizado com sucesso!")
                 setTimeout(() => {
@@ -80,75 +70,86 @@ function TecnicosEditComponent(props) {
         LoadTecnicos();
     }, [])
 
-    // useEffect(() => {
-    //     LoadServices(idTecnico);
-    // }, [idTecnico]);
-
     return (
         <>
             <div className="container-fluid mt-add">
                 <ToastContainer
                     className='Toastify__toast-body'
-                    autoClose={5000}
+                    autoClose={3000}
                     closeOnClick
                     position="top-center" />
                 <Navbar />
                 <div className="container-fluid topo-tecnicos">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
-                            {tecnicos?.map((t) => {
-                                return (
-                                    <>
-                                        <section className="col-12 border bg-form my-2 px-2" key={t.id_tecnico}>
-                                            <div className="row card-title ps-4 py-2 h4 text-light">{t.name}</div>
-                                            <div className="row">
-                                                <div className="col-3">
-                                                    <dt className='p-2'>👤 Email</dt>
-                                                    <div className="border p-2">
-                                                        {t.email}
-                                                    </div>
-                                                </div>
-                                                <div className="col-6">
-                                                    <dt className='p-2'>👤 Endereço</dt>
-                                                    <div className="border p-2">
-                                                        {t.endereco}
-                                                    </div>
-                                                </div>
-                                                <div className="col-3">
-                                                    <dt className='p-2'>👤 Celular</dt>
-                                                    <div className="border p-2">
-                                                        {t.cel_phone}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="row justify-content-between pb-3">
-                                                <div className="col-3">
-                                                    <dt className='p-2'>👤 Função</dt>
-                                                    <div className="border p-2">
-                                                        {t.skill}
-                                                    </div>
-                                                </div>
-                                                <div className="col-6">
-                                                    <dt className='p-2'>👤 Atividades</dt>
-                                                    {services?.map((s) => {
-                                                        return <div className='border' key={s.id_service} value={s.id_service}>
-                                                            {s.description}
-                                                        </div>
-                                                    })}
-                                                </div>
-                                                <div className="col-3 d-flex align-items-end justify-content-end">
-                                                    <div className="justify-content-around me-3">
-                                                        <button onClick={SaveTecnico}
-                                                            className="btn btn-sm btn-danger">
-                                                            <i className="bi bi-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </section >
-                                    </>
+                            <section className="col-12 border bg-form my-2 px-2">
+                                <div className="row card-title ps-4 py-2 h4 text-light">
+                                    {tecnicos.name}
+                                </div>
+                                <div className="row">
+                                    <div className="col-3">
+                                        <dt className='p-2'>👤 Nome</dt>
+                                        <input
+                                            value={tecnicos.name}
+                                            onChange={(e) => setTecnicos({ ...tecnicos, name: e.target.value })}
+                                            placeholder="Email"
+                                            type="text"
+                                            className="form-control" />
+                                    </div>
+                                    <div className="col-3">
+                                        <dt className='p-2'>👤 Email</dt>
+                                        <input
+                                            value={tecnicos.email}
+                                            onChange={(e) => setTecnicos({ ...tecnicos, email: e.target.value })}
+                                            placeholder="Email"
+                                            type="text"
+                                            className="form-control" />
+                                    </div>
+                                    <div className="col-3">
+                                        <dt className='p-2'>👤 Celular</dt>
+                                        <input
+                                            value={tecnicos.cel_phone}
+                                            onChange={(e) => setTecnicos({ ...tecnicos, cel_phone: e.target.value })}
+                                            placeholder="Endereço"
+                                            type="text"
+                                            className="form-control" />
+                                    </div>
+                                </div>
+                                <div className="row justify-content-between pb-3">
+                                    <div className="col-6">
+                                        <dt className='p-2'>👤 Endereço</dt>
+                                        <input
+                                            value={tecnicos.endereco}
+                                            onChange={(e) => setTecnicos({ ...tecnicos, endereco: e.target.value })}
+                                            placeholder="Endereço"
+                                            type="text"
+                                            className="form-control" />
+                                    </div>
+                                    <div className="col-3">
+                                        <dt className='p-2'>👤 Função</dt>
+                                        <input
+                                            value={tecnicos.skill}
+                                            onChange={(e) => setTecnicos({ ...tecnicos, skill: e.target.value })}
+                                            placeholder="Endereço"
+                                            type="text"
+                                            className="form-control" />
+                                    </div>
+
+                                    <div className="col-3 d-flex align-items-end justify-content-end">
+                                        <div className="justify-content-around me-3">
+                                            <button onClick={SaveTecnico}
+                                                className="btn button-send mb-1 btn-sm btn-primary mx-2">
+                                              Salvar
+                                              <i class="mx-1 bi bi-check-square-fill"></i>
+                                                {/* <i className="bi bi-pencil-square"></i> */}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section >
+                            {/* </>
                                 )
-                            })}
+                            })} */}
 
                         </div>
                     </div>

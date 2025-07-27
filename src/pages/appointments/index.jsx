@@ -117,9 +117,7 @@
     useEffect(() => {
       LoadTecnicos();
       LoadAppointments();
-    }, []);
-    console.log(appointments.id_appointment);
-    
+    }, []); 
 
     function ChangeTecnico(e) {
       setIdTecnico(e.target.value);

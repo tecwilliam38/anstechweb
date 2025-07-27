@@ -35,9 +35,7 @@ function AppointmentAdd() {
             });
             if (response.data) {
                 setClients(response.data);
-                console.log(response.data);
-
-            }
+             }
 
         } catch (error) {
             if (error.response?.data.error) {
