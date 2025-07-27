@@ -12,17 +12,9 @@ import { useAuth } from '../../context/authContext';
 function TecnicoRegister() {
 
     const navigate = useNavigate()
-    // const [name, setName] = useState("")
-    // const [cel_phone, setCel_phone] = useState("");
-    // const [endereco, setEndereco] = useState("");
-    // const [email, setEmail] = useState("")
-    // const [specialty, setSpecialty] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [msg, setMsg] = useState("");
-    // const [idTecnico, setIdTecnico] = useState("")
     const [visible, setVisible] = useState(false);
-    // const [tecnicos, setTecnicos] = useState([]);
-
+    const { user } = useAuth();
+    
     // 
     const [name, setName] = useState("");
     const [endereco, setEndereco] = useState("");
@@ -32,10 +24,6 @@ function TecnicoRegister() {
     const [password, setPassword] = useState("");
     const [msg, setMsg] = useState("");
 
-
-
-
-    const { user } = useAuth();
 
     async function ExecuteAccount() {
         setMsg("");

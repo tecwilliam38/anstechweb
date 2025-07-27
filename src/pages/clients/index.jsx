@@ -53,8 +53,6 @@ function ClientComponent() {
 
             if (response.data) {
                 setClients(response.data)
-                console.log("clientes:", response.data);
-
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -118,7 +116,16 @@ function ClientComponent() {
                     closeOnClick
                     position="top-center" />
                 <Navbar />
-                <div className="container-fluid topo-tecnicos">
+                <div className="container col-10 mx-auto text-center">
+                    <div className="row justify-content-between">
+                        <div className="h1 col-3">
+                            Clientes
+                        </div>
+                        <button onClick={() => navigate("/cadastro/clients")}
+                         className="btn col-3 btn-primary me-2  button-login">Cadastrar novo Cliente</button>
+                    </div>
+                </div>
+                <div className="container-fluid">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
                             {clients.map((cl) => {

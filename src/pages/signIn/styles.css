@@ -11,21 +11,24 @@
 
 .button-login {
   background: #2A7B9B;
-  border:0;
+  border: 0;
   font-size: 20px;
   background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(83, 237, 211, 1) 100%);
 }
+
 .button-login:hover {
   background: #2A7B9B;
-  border:0;
-  background: linear-gradient(90deg, rgba(83, 237, 211, 1) 100%,  rgba(87, 199, 133, 1) 50%, rgba(42, 123, 155, 1) 0%);
+  color: #333;
+  border: 0;
+  background: linear-gradient(90deg, rgba(83, 237, 211, 1) 100%, rgba(87, 199, 133, 1) 50%, rgba(42, 123, 155, 1) 0%);
 }
+
 .logo-signin {
   background-image: url('../../assets/logo.png');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;  
-  margin: 0 auto;    
+  background-repeat: no-repeat;
+  margin: 0 auto;
   width: 15vw;
   height: 30vh;
   border-radius: 50%;
@@ -49,19 +52,20 @@
     /* Ajusta sem cortar */
     background-position: top center;
   }
+
   .logo-signin {
-  background-image: url('../../assets/logoAns.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  text-align: center;
-  margin: 0 auto;
-  padding: 3px;
-  display: flex;
-  width: 50vw;
-  height: 40vh;
-  border-radius: 50%;
-}
+    background-image: url('../../assets/logoAns.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    margin: 0 auto;
+    padding: 3px;
+    display: flex;
+    width: 50vw;
+    height: 40vh;
+    border-radius: 50%;
+  }
 }
 
 .eye-style {

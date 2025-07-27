@@ -26,18 +26,10 @@ function Client(props) {
     const navigate = useNavigate();
     const { user } = useAuth();
     const { id_client } = useParams();
-    console.log(id_client);
+
 
 
     return <>
-        <div className="container justify-content-center text-center">
-            <div className="row justify-content-between">
-                <div className="h1 col-3">
-                    Clientes
-                </div>
-                <button onClick={() => navigate("/appointments")} className="btn col-3 btn-primary  button-login">Cadastrar novo Cliente</button>
-            </div>
-        </div>
         <section className="col-12 border bg-form my-2 px-2" key={props.id_client}>
             <div className="row card-title ps-4 py-2 h4 text-light">{props.nomeClient}</div>
             <div className="row justify-content-around">

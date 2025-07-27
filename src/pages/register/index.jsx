@@ -7,7 +7,7 @@ import "./style.css"
 import { toast } from 'react-toastify';
 
 
-function RegisterTecnicoComponent() {
+function RegisterClient() {
     const navigate = useNavigate()
     const [name, setName] = useState()
     const [cel_phone, setCel_phone] = useState();
@@ -87,18 +87,12 @@ function RegisterTecnicoComponent() {
         <>
             <Navbar />
             <div className="container-fluid justify-content-center align-items-center mt-page">
-                {/* <div className="container card-shadow border p-3"> */}
-
-                {/* {tecnicos?.map((ts)=>{
-                        return<div key={ts.id_tecnico}>{ts.name}</div>
-                        })} */}
                 <div className="container-fluid topo-tecnicos">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
                             <section className="col-12 border bg-form my-2 ">
-                                {
-                                    id_tecnico > 0 ? <h3>📄 Editar Técnico</h3> : <h3 className='text-light p-2 card-title'>📄 Ficha de Cadastro de Técnicos</h3>
-                                }
+                               <h3 className='text-light p-2 card-title'>📄 Ficha de Cadastro de Clientes</h3>
+                               
                                 <div className="row ps-4 py-2 h4 text-light">{name}</div>
                                 <div className="row px-2">
                                     <div className="col-3">
@@ -163,84 +157,9 @@ function RegisterTecnicoComponent() {
                         </div>
                     </div>
                 </div >
-
-
-                {/* {tecnicos?.map((t) => {
-                        return (
-                            <>
-                                <form className="mt-4" key={id_tecnico}>
-                                    <div className="mb-3">
-                                        <label className="form-label">Nome do Técnico</label>
-                                        <input
-                                            type="text"
-                                            name="escola"
-                                            value={name}
-                                            className="form-control"
-                                            onChange={(e) => setName(e.targevalue)}
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Celular</label>
-                                        <input
-                                            type="tel"
-                                            name="Celular"
-                                            placeholder="Celular"
-                                            className="form-control"
-                                            onChange={(e) => setCel_phone(e.targevalue)}
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Endereço</label>
-                                        <input type="text" placeholder="Endereço"
-                                            value={endereco}
-                                            className="form-control"
-                                            onChange={(e) => setEndereco(e.targevalue)} />
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Skill</label>
-                                        <input type="text" placeholder="Skill"
-                                            className="form-control"
-                                            onChange={(e) => setSpecialty(e.targevalue)} />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">E-mail</label>
-                                        <input type="email" placeholder="E-mail"
-                                            value={email}
-                                            className="form-control"
-                                            onChange={(e) => setEmail(e.targevalue)} />
-                                    </div>
-                                    <div className="mt-2 position-relative">
-                                        <input type={visible ? "text" : "password"} placeholder="Senha"
-                                            className="form-control"
-                                            onChange={(e) => setPassword(e.targevalue)} />
-                                        <i
-                                            className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute`}
-                                            onClick={() => setVisible(!visible)}
-                                            style={{
-                                                fontSize: "1.3rem",
-                                                top: "50%",
-                                                right: "15px",
-                                                transform: "translateY(-50%)",
-                                                cursor: "pointer",
-                                                color: "#7b7e80"
-                                            }}
-                                        ></i>
-                                    </div>
-
-                                    <div className="mt-3 mb-2">
-                                        <button onClick={ExecuteAccount} className="btn btn-primary button-login p-2 w-100" type="button">
-                                            Cadastrar técnico
-                                        </button>
-                                    </div>
-                                </form>
-                            </>
-                        )
-                    })} */}
             </div>
-            {/* </div > */}
         </>
     )
 }
 
-export default RegisterTecnicoComponent
+export default RegisterClient
