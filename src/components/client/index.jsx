@@ -25,7 +25,7 @@ Client.propTypes = {
 function Client(props) {
     const navigate = useNavigate();
     const { user } = useAuth();
-    const { id_client } = useParams();
+    // const { id_client } = useParams();
 
 
 

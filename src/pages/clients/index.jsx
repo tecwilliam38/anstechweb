@@ -60,7 +60,7 @@ function ClientComponent() {
         }
     }
 
-    function ClickDelete(id_client) {
+    function ClickDelete(idClient) {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
@@ -68,7 +68,7 @@ function ClientComponent() {
                         <h1>Exclusão</h1>
                         <p>Confirma exclusão desse cliente?</p>
                         <div className="button-container">
-                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteClient(id_client); onClose(); }}>Sim</button>
+                            <button className='btn btn-lg-primary text-light p-2 button-yes' onClick={() => { DeleteClient(idClient); onClose(); }}>Sim</button>
                             <button className='btn btn-lg-primary text-light p-2 button-no' onClick={onClose}>Não</button>
                         </div>
                     </div>
@@ -97,7 +97,7 @@ function ClientComponent() {
                 alert(error.response?.data.error);
             }
             else
-                alert("Erro ao excluir técnico");
+                alert("Erro ao excluir cliente");
         }
     }
 
@@ -130,7 +130,7 @@ function ClientComponent() {
                         <div className="col-10 mx-auto ">
                             {clients.map((cl) => {
                                 return <Client key={cl.id_client}
-                                    // id_client={cl.id_client}
+                                    id_client={cl.id_client}
                                     nomeClient={cl.client_name}
                                     enderecoRua={cl.endereco_rua}
                                     enderecoBairro={cl.endereco_bairro}

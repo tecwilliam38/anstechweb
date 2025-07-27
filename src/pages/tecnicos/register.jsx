@@ -89,27 +89,32 @@ function TecnicoRegister() {
                                     <div className="row px-2 mb-3 justify-content-between col-10 ">
                                         <div className="col-auto">
                                             <dt className='p-2'>👤 Nome:</dt>
-                                            <input className='form-control' type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome" required />
+                                            <input className='form-control' type="text" value={name} 
+                                            onChange={(e) => setName(e.target.value)} placeholder="Nome" required />
                                         </div>
                                         <div className="col-auto">
                                             <dt className='p-2'>👤 E-mail</dt>
-                                            <input className='form-control' type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
+                                            <input className='form-control' type="email" value={email} 
+                                            onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
                                         </div>
                                     </div>
                                     <div className="row px-2 mb-3 justify-content-between col-10 ">
                                         <div className="col-auto">
                                             <dt className='p-2'>👤 Celular</dt>
-                                            <input className='form-control' type="text" value={cel_phone} onChange={(e) => setCelPhone(e.target.value)} placeholder="Celular" required />
+                                            <input className='form-control' type="text" value={cel_phone} 
+                                            onChange={(e) => setCelPhone(e.target.value)} placeholder="Celular" required />
                                         </div>
                                         <div className="col-auto">
                                             <dt className='p-2'>👤 Endereço</dt>
-                                            <input className='form-control' type="text" value={endereco} onChange={(e) => setEndereco(e.target.value)} placeholder="Endereço" required />
+                                            <input className='form-control' type="text" value={endereco} 
+                                            onChange={(e) => setEndereco(e.target.value)} placeholder="Endereço" required />
                                         </div>
                                     </div>
                                     <div className="row px-2 mb-3 justify-content-between col-10 ">
                                         <div className="col-auto">
                                             <dt className='p-2'>👤 Função</dt>
-                                            <select className='form-control' name="tecnico" id="tecnico" onChange={ChangeFuncao}>
+                                            <select className='form-control' name="tecnico" id="tecnico" 
+                                            onChange={ChangeFuncao}>
                                                 <option value="">Escolha uma função...</option>
                                                 <option value={"Tecnico Geral"} >Técnico Geral</option>
                                                 <option value={"Tecnico Redes"} >Técnico de Redes</option>
@@ -120,8 +125,8 @@ function TecnicoRegister() {
                                             <dt className='p-2'>👤 Senha</dt>
                                             <input className='form-control'
                                                 type={visible ? "text" : "password"}
-                                                //  type="password" 
-                                                value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" required />
+                                                value={password}
+                                                 onChange={(e) => setPassword(e.target.value)} placeholder="Senha" required />
                                             <i
                                                 className={`bi ${visible ? "bi-eye" : "bi-eye-slash"} position-absolute me-2`}
                                                 onClick={() => setVisible(!visible)}
