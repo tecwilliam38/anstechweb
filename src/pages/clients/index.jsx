@@ -86,6 +86,7 @@ function ClientComponent() {
                 toast.success("Cliente excluído com sucesso!")
                 setTimeout(() => {
                     LoadClients();
+                    navigate("/appointments")
                 }, 3000);
             }
 
