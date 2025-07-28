@@ -138,7 +138,7 @@
               <div className="d-flex justify-content-around align-items-center mb-4 mt-5 p-2">
                 <div className="col-5">
                   <h2 className="d-inline me-2 h4 text-dark">Agendamentos</h2>
-                  <Link to="/appointments/add" className="btn btn-outline-primary">Novo Agendamento </Link>
+                  <Link to="/appointments/add" className="btn btn-outline-primary menu-name">Novo Chamado </Link>
                 </div>
                 {/* Campo de filtro inicio */}
                 <div className="d-flex nav-right justify-content-end">
