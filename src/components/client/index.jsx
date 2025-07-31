@@ -46,15 +46,15 @@ function Client(props) {
                     </div>
                 </div>
                 <div className="col-auto">
-                    <dt className='p-2'>👤 Cidade</dt>
-                    <div className="border p-2">
-                        {props.enderecoCidade}
-                    </div>
-                </div>
-                <div className="col-auto">
                     <dt className='p-2'>👤 Bairro</dt>
                     <div className="border p-2">
                         {props.enderecoBairro}
+                    </div>
+                </div>
+                <div className="col-auto">
+                    <dt className='p-2'>👤 Cidade</dt>
+                    <div className="border p-2">
+                        {props.enderecoCidade}
                     </div>
                 </div>
             </div>
