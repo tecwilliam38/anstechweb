@@ -32,8 +32,8 @@ function Client(props) {
     return <>
         <section className="col-12 border bg-form my-2 px-2" key={props.id_client}>
             <div className="row card-title ps-4 py-2 h4 text-light">{props.nomeClient}</div>
-            <div className="row justify-content-around">
-                <div className="col-3">
+            <div className="row justify-content-around mt-2">
+                <div className="col-auto">
                     <dt className='p-2'>👤 Email</dt>
                     <div className="border p-2">
                         {props.email}
@@ -57,16 +57,16 @@ function Client(props) {
                         {props.enderecoBairro}
                     </div>
                 </div>
+            </div>
+            <div className="row justify-content-around mb-3">
                 <div className="col-auto">
                     <dt className='p-2'>👤 UF</dt>
                     <div className="border p-2">
                         {props.enderecoUf}
                     </div>
                 </div>
-            </div>
-            <div className="row justify-content-between pb-3">
                 <div className="col-auto">
-                    <dt className='p-2'>👤 Celular</dt>
+                    <dt className='p-2'>👤 Contato</dt>
                     <div className="border p-2">
                         {props.contato}
                     </div>
