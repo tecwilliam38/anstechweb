@@ -27,12 +27,13 @@ function ClientComponent() {
     const [password, setPassword] = useState("");
     const [task, setTask] = useState("");
     const [docId, setDocId] = useState("");
+    const [termo, setTermo] = useState('');
 
     function ClickEdit(id_client) {
         navigate("/appointments/clients/" + id_client, {
             headers: { Authorization: `Bearer ${user.token}` }
         })
-    }   
+    }
     async function LoadClients() {
         try {
             const response = await api.get("/client/listar", {
@@ -102,6 +103,20 @@ function ClientComponent() {
         }
     }
 
+    async function buscarClientes() {
+        try {
+            const res = await api.post('/client/buscar', { termo }, {
+                headers: { Authorization: `Bearer ${user.token}` }
+            });
+            setClients(res.data);
+            // setClientes(res.data);
+            setTermo('');
+            console.log(res.data);
+        } catch (err) {
+            console.error('Erro ao buscar clientes', err);
+            console.log(err.response.data.error);
+        }
+    };
 
     useEffect(() => {
         LoadClients();
@@ -119,16 +134,29 @@ function ClientComponent() {
                 <Navbar />
                 <div className="container col-10 mx-auto text-center">
                     <div className="row justify-content-between">
-                        <div className="h1 col-3">
+                        <div className="h1 col-auto">
                             Clientes
                         </div>
+                        <form className="d-flex col-auto my-2 my-lg-0">
+                            <input className="form-control me-2 mr-sm-2" 
+                            type="search" 
+                            placeholder="Pesquisar" 
+                            aria-label="Pesquisar" 
+                            value={termo}
+                            onChange={e => setTermo(e.target.value)}
+                            />
+                            <button className="btn btn-outline-success my-2 my-sm-0"
+                            onClick={buscarClientes}
+                            type="button">Pesquisar</button>
+                        </form>
                         <button onClick={() => navigate("/cadastro/clients")}
-                         className="btn col-3 btn-primary me-2  button-login">Cadastrar novo Cliente</button>
-                    </div>
+                            className="btn col-auto btn-primary me-2  button-login">Cadastrar novo Cliente</button>
+                    </div>                   
                 </div>
                 <div className="container-fluid">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
+                            {clients?.map ? <div></div> : <><h2>Resultados da Pesquisa:</h2></>}
                             {clients.map((cl) => {
                                 return <Client key={cl.id_client}
                                     id_client={cl.id_client}

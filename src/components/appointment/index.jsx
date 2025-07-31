@@ -22,6 +22,8 @@ function Appointment(props) {
     function ChangeStatus(e) {
         setStatus(e.target.value);
     }
+console.log(props.tecnico);
+   
 
     return (<>
         <tr>
