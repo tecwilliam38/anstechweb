@@ -105,7 +105,6 @@ function ClientComponent() {
 
     async function buscarClientes() {
         try {
-            // const res = await api.get('/client/buscar', { termo: termo }, {
             const res = await api.post('/client/buscar', { termo: termo }, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
