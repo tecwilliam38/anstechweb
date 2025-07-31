@@ -105,10 +105,9 @@ function RegisterClient() {
             <div className="container-fluid justify-content-center align-items-center mt-page">
                 <div className="container-fluid topo-tecnicos">
                     <div className="row d-flex justify-content-center mb-1">
-                        <div className="col-10 mx-auto ">
+                        <div className="col-10 mx-auto mt-2">
                             <section className="col-12 border bg-form my-2 ">
                                 <h3 className='text-light p-2 card-title'>📄 Ficha de Cadastro de Clientes</h3>
-
                                 <div className="row ps-4 py-2 h4 text-light">{client_name}</div>
                                 <div className="row px-2">
                                     <div className="row px-2 justify-content-between col-12 mx-auto">
@@ -133,7 +132,7 @@ function RegisterClient() {
                                                 required />
                                         </div>
                                         <div className="col-auto">
-                                            <dt className='p-2'>👤 Celular</dt>
+                                            <dt className='p-2'>👤 Contato</dt>
                                             <input
                                                 type="tel"
                                                 name="Celular"
