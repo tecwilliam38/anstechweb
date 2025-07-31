@@ -105,13 +105,14 @@ function ClientComponent() {
 
     async function buscarClientes() {
         try {
-            const res = await api.get('/client/buscar/', { termo }, {
+            // const res = await api.get('/client/buscar', { termo: termo }, {
+            const res = await api.post('/client/buscar', { termo: termo }, {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
             setClients(res.data);
             // setClientes(res.data);
             setTermo('');
-            console.log(res.data);
+            console.log("resultado:",res.data);
         } catch (err) {
             console.error('Erro ao buscar clientes', err);
             console.log(err.response.data.error);
@@ -143,7 +144,7 @@ function ClientComponent() {
                             placeholder="Pesquisar" 
                             aria-label="Pesquisar" 
                             value={termo}
-                            onChange={e => setTermo(e.target.value)}
+                            onChange={(e) => setTermo(e.target.value)}
                             />
                             <button className="btn btn-outline-success my-2 my-sm-0"
                             onClick={buscarClientes}
@@ -156,7 +157,7 @@ function ClientComponent() {
                 <div className="container-fluid">
                     <div className="row d-flex justify-content-center mb-1">
                         <div className="col-10 mx-auto ">
-                            {clients?.map ? <div></div> : <><h2>Resultados da Pesquisa:</h2></>}
+                            {clients?.map ? <div className='mt-3'></div> : <><h2>Resultados da Pesquisa:</h2></>}
                             {clients.map((cl) => {
                                 return <Client key={cl.id_client}
                                     id_client={cl.id_client}
