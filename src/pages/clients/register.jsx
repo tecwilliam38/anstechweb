@@ -63,6 +63,25 @@ function RegisterClient() {
         setTask(e.target.value);
     }
 
+    const municipiosRJ = [
+        "Angra dos Reis", "Aperibé", "Araruama", "Areal", "Armação dos Búzios", "Arraial do Cabo",
+        "Barra do Piraí", "Barra Mansa", "Belford Roxo", "Bom Jardim", "Bom Jesus do Itabapoana",
+        "Cabo Frio", "Cachoeiras de Macacu", "Cambuci", "Campos dos Goytacazes", "Cantagalo",
+        "Carapebus", "Cardoso Moreira", "Carmo", "Casimiro de Abreu", "Comendador Levy Gasparian",
+        "Conceição de Macabu", "Cordeiro", "Duas Barras", "Duque de Caxias", "Engenheiro Paulo de Frontin",
+        "Guapimirim", "Iguaba Grande", "Itaboraí", "Itaguaí", "Italva", "Itaocara", "Itaperuna",
+        "Itatiaia", "Japeri", "Laje do Muriaé", "Macaé", "Macuco", "Magé", "Mangaratiba", "Maricá",
+        "Mendes", "Mesquita", "Miguel Pereira", "Miracema", "Natividade", "Nilópolis", "Niterói",
+        "Nova Friburgo", "Nova Iguaçu", "Paracambi", "Paraíba do Sul", "Paraty", "Paty do Alferes",
+        "Petrópolis", "Pinheiral", "Piraí", "Porciúncula", "Porto Real", "Quatis", "Queimados",
+        "Quissamã", "Resende", "Rio Bonito", "Rio Claro", "Rio das Flores", "Rio das Ostras",
+        "Rio de Janeiro", "Santa Maria Madalena", "Santo Antônio de Pádua", "São Fidélis",
+        "São Francisco de Itabapoana", "São Gonçalo", "São João da Barra", "São João de Meriti",
+        "São José de Ubá", "São José do Vale do Rio Preto", "São Pedro da Aldeia", "São Sebastião do Alto",
+        "Sapucaia", "Saquarema", "Seropédica", "Silva Jardim", "Sumidouro", "Tanguá", "Teresópolis",
+        "Trajano de Moraes", "Três Rios", "Valença", "Varre-Sai", "Vassouras", "Volta Redonda"
+    ];
+
     const ufs = [
         { sigla: "AC", nome: "Acre" },
         { sigla: "AL", nome: "Alagoas" },
@@ -159,11 +178,16 @@ function RegisterClient() {
                                                 onChange={(e) => setEndereco_bairro(e.target.value)} required />
                                         </div>
                                         <div className="col-4">
-                                            <dt className='p-2'>👤 Endereço cidade</dt>
-                                            <input type="text" placeholder="Endereço"
-                                                value={endereco_cidade}
-                                                className="form-control"
-                                                onChange={(e) => setEndereco_cidade(e.target.value)} required />
+                                            <dt className='p-2'>👤 Endereço cidade</dt>                                            
+                                            <select
+                                                onChange={(e) => setEndereco_cidade(e.target.value)} required>
+                                                <option value="">Selecione um município</option>
+                                                {municipiosRJ.map((municipio) => (
+                                                    <option key={municipio} value={municipio}>
+                                                        {municipio}
+                                                    </option>
+                                                ))}
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="row px-2 justify-content-between col-12 mx-auto mb-3">
