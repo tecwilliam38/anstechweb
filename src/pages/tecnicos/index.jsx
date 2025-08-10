@@ -104,68 +104,69 @@ function TecnicosComponent() {
                         <div className="h1 col-3">
                             Técnicos
                         </div>
-                        <button 
-                        onClick={() => navigate("/cadastro/tecnicos")} 
-                        className="btn me-2 col-3 btn-primary  button-login">Cadastrar novo Técnico</button>
+                        <button
+                            onClick={() => navigate("/cadastro/tecnicos")}
+                            className="btn me-2 col-3 btn-primary  button-login">Cadastrar novo Técnico</button>
                     </div>
                 </div>
                 <div className="container-fluid ">
                     <div className="row d-flex justify-content-center mb-1">
-                        <div className="col-10 mx-auto ">
-                            {tecnicos.map((tec) => {
-                                return <section className="col-12 border bg-form my-2 px-2" key={tec.id_tecnico}>
-                                    <div className="row card-title ps-4 py-2 h4 text-light">{tec.name}</div>
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <dt className='p-2'>👤 Email</dt>
-                                            <div className="border p-2">
-                                                {tec.email}
-                                            </div>
-                                        </div>
-                                        <div className="col-6">
-                                            <dt className='p-2'>👤 Endereço</dt>
-                                            <div className="border p-2">
-                                                {tec.endereco}
-                                            </div>
-                                        </div>
-                                        <div className="col-3">
-                                            <dt className='p-2'>👤 Celular</dt>
-                                            <div className="border p-2">
-                                                {tec.cel_phone}
-                                            </div>
-                                        </div>
+                        <div className="col-10 mx-auto">
+                            {tecnicos.map((tec) => (
+                                <div className="card my-3 bg-form text-light" key={tec.id_tecnico}>
+                                    <div className="ps-4 py-2 card-title h4">
+                                        {tec.name}
                                     </div>
-                                    <div className="row justify-content-between pb-3">
-                                        <div className="col-3">
-                                            <dt className='p-2'>👤 Função</dt>
-                                            <div className="border p-2">
-                                                {tec.skill}
+
+                                    <div className="card-body">
+                                        <div className="row mb-3">
+                                            <div className="col-md-3">
+                                                <dt>👤 Email</dt>
+                                                <div className="border p-2 bg-light text-dark rounded">
+                                                    {tec.email}
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <dt>📍 Endereço</dt>
+                                                <div className="border p-2 bg-light text-dark rounded">
+                                                    {tec.endereco}
+                                                </div>
+                                            </div>
+                                            <div className="col-md-3">
+                                                <dt>📱 Celular</dt>
+                                                <div className="border p-2 bg-light text-dark rounded">
+                                                    {tec.cel_phone}
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="col-6">
-                                            <dt className='p-2'>👤 Atividades</dt>
-                                            {/* {services.map((s) => {
-                                                return <div className='border' key={s.id_service} value={s.id_service}>
-                                                    {s.description}
+
+                                        <div className="row justify-content-between">
+                                            <div className="col-md-3">
+                                                <dt>🛠️ Função</dt>
+                                                <div className="border p-2 bg-light text-dark rounded">
+                                                    {tec.skill}
                                                 </div>
-                                            })} */}
-                                        </div>
-                                        <div className="col-3 d-flex align-items-end justify-content-end">
-                                            <div className="justify-content-around me-3">
-                                                <button onClick={() => ClickEdit(tec.id_tecnico)}
-                                                    className="btn btn-sm btn-primary mx-2">
+                                            </div>
+                                            <div className="col-md-3 d-flex align-items-end justify-content-end">
+                                                <button
+                                                    onClick={() => ClickEdit(tec.id_tecnico)}
+                                                    className="btn btn-sm btn-primary mx-2"
+                                                >
                                                     <i className="bi bi-pencil-square"></i>
                                                 </button>
-                                                <button onClick={() => ClickDelete(tec.id_tecnico)}
-                                                    className="btn btn-sm btn-danger">
+                                                <button
+                                                    onClick={() => ClickDelete(tec.id_tecnico)}
+                                                    className="btn btn-sm btn-danger"
+                                                >
                                                     <i className="bi bi-trash"></i>
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                </section >
-                            })}
+                                </div>
+                            ))}
                         </div>
+
                     </div>
                 </div >
             </div >
