@@ -25,6 +25,11 @@ function TecnicosEditComponent() {
     const [cel_phone, setCel_phone] = useState("")
     const [skill, setSkill] = useState("")
 
+    const [skillInsert, setSkillInsert] = useState("");
+    const [id_service, setId_service] = useState("");
+    const [price, setPrice] = useState('');
+
+
     async function LoadTecnicos() {
         try {
             const response = await api.get("/tecnicos/listar/" + id_tecnico, {
@@ -52,16 +57,25 @@ function TecnicosEditComponent() {
             cel_phone: cel_phone,
             email: email
         }
+        const skillList ={
+            id_service: id_service,
+            price: price
+        }
         try {
             const response = await api.put("/tecnicos/" + id_tecnico, json, {
                 headers: { Authorization: `Bearer ${user.token}` }
             })
-
-            if (response.data) {
+            const responseSkill = await api.post("/tecnicos/skills/" + id_tecnico,
+                skillList,
+                {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                }
+            )
+            if (response.data && responseSkill.data) {
                 toast.success("Tecnico atualizado com sucesso!")
-                    setTimeout(() => {
-                        navigate("/appointments/tecnicos");
-                    }, 3000);
+                setTimeout(() => {
+                    navigate("/appointments/tecnicos");
+                }, 3000);
             }
         } catch (error) {
             console.log(error.data);
@@ -73,11 +87,21 @@ function TecnicosEditComponent() {
                 alert(error.response?.data.error);
             }
             else
-            alert("Erro ao salvar dados");
+                alert("Erro ao salvar dados");
             console.log(error);
 
         }
     }
+    const opcoes = [
+        { id: 1, label: 'Manutenção', value: 'manutencao' },
+        { id: 2, label: 'Instalação de 1 a 3 Aps', value: 'instalacao_1_3' },
+        { id: 3, label: 'Instalação de 4 a 6 Aps', value: 'instalacao_4_6' },
+        { id: 4, label: 'Instalação de 7 a 10 Aps', value: 'instalacao_7_10' },
+        { id: 5, label: 'Instalação de 11 a 13 Aps', value: 'instalacao_11_13' },
+        { id: 6, label: 'Instalação de 14 a 18 Aps', value: 'instalacao_14_18' },
+        { id: 7, label: 'Configuração Escolas', value: 'configuracao_escolas' },
+        { id: 8, label: 'Outros', value: 'outros' },
+    ];
 
     useEffect(() => {
         LoadTecnicos();
@@ -99,7 +123,7 @@ function TecnicosEditComponent() {
                                 <div className="row card-title ps-4 py-2 h4 text-light">
                                     {name}
                                 </div>
-                                <div className="row">
+                                <div className="row justify-content-between p-3">
                                     <div className="col-3">
                                         <dt className='p-2'>👤 Nome</dt>
                                         <input
@@ -127,9 +151,33 @@ function TecnicosEditComponent() {
                                             type="text"
                                             className="form-control" />
                                     </div>
+                                    <div className="col-3">
+                                        <label htmlFor="selectServico" className="form-label">Skill</label>
+                                        <select
+                                            id="selectServico"
+                                            className="form-select"
+                                            value={id_service}
+                                            onChange={(e) => setId_service(e.target.value)}
+                                        >
+                                            <option value="">Selecione uma opção...</option>
+                                            {opcoes.map((opcao) => (
+                                                <option key={opcao.id} value={opcao.id}>{opcao.label}</option>
+                                            ))}
+                                        </select>
+
+                                    </div>
                                 </div>
-                                <div className="row justify-content-between pb-3">
-                                    <div className="col-6">
+                                <div className="row justify-content-between p-3">
+                                    <div className="col-2">
+                                        <dt className='p-2'>👤 Preço</dt>
+                                        <input
+                                            value={price}
+                                            onChange={(e) => setPrice(e.target.value)}
+                                            placeholder="Preço"
+                                            type="text"
+                                            className="form-control" />
+                                    </div>
+                                    <div className="col-4">
                                         <dt className='p-2'>👤 Endereço</dt>
                                         <input
                                             value={endereco}
@@ -138,7 +186,7 @@ function TecnicosEditComponent() {
                                             type="text"
                                             className="form-control" />
                                     </div>
-                                    <div className="col-3">
+                                    <div className="col-2">
                                         <dt className='p-2'>👤 Função</dt>
                                         <input
                                             value={skill ?? ""}
@@ -148,7 +196,7 @@ function TecnicosEditComponent() {
                                             className="form-control" />
                                     </div>
 
-                                    <div className="col-3 d-flex align-items-end justify-content-end">
+                                    <div className="col-auto d-flex align-items-end justify-content-end">
                                         <div className="justify-content-around me-3">
                                             <button onClick={SaveTecnico}
                                                 className="btn button-send mb-1 btn-sm btn-primary mx-2">
