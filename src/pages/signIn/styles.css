@@ -20,7 +20,7 @@
   background: #2A7B9B;
   color: #333;
   border: 0;
-  background: linear-gradient(90deg, rgba(83, 237, 211, 1) 100%, rgba(87, 199, 133, 1) 50%, rgba(42, 123, 155, 1) 0%);
+  background: linear-gradient(90deg, rgba(30, 91, 115, 1) 0%, rgba(68, 158, 106, 1) 50%, rgba(83, 237, 211, 1) 100%);  
 }
 
 .logo-signin {
