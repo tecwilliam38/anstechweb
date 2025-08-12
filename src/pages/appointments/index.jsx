@@ -31,7 +31,7 @@ function Appointments() {
 
     // const dataFilter = { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd  };
     try {
-      const response = await api.get("/api/listar/", {
+      const response = await api.get("/appointments/listar/", {
         headers: { Authorization: `Bearer ${user.token}` },
         params: { id_tecnico: idTecnico }
       });
@@ -50,7 +50,7 @@ function Appointments() {
         alert(error.response?.data.error);
       }
       else
-        alert("Erro ao efetutar login. Tente novamente mais tarde.");
+        alert("Erro ao Carregar agendamentos.");
     }
   }
 
