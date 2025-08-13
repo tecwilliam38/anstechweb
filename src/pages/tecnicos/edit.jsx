@@ -13,6 +13,7 @@ import { toast, ToastContainer } from 'react-toastify';
 function TecnicosEditComponent() {
     const navigate = useNavigate();
     const { user } = useAuth();
+    
     const { id_tecnico } = useParams();
 
     const [msg, setMsg] = useState("");
@@ -24,11 +25,14 @@ function TecnicosEditComponent() {
     const [endereco, setEndereco] = useState("");
     const [cel_phone, setCel_phone] = useState("")
     const [skill, setSkill] = useState("")
+    const [password, setPassword] = useState("")
 
     const [skillInsert, setSkillInsert] = useState("");
     const [id_service, setId_service] = useState("");
     const [price, setPrice] = useState('');
-
+    
+    console.log(id_tecnico);
+    
 
     async function LoadTecnicos() {
         try {
@@ -41,7 +45,8 @@ function TecnicosEditComponent() {
                 setEmail(response.data.email);
                 setCel_phone(response.data.cel_phone);
                 setEndereco(response.data.endereco);
-                setSkill(response.data.skill)
+                setSkill(response.data.skill);
+                setPassword(response.data.password);
             }
         } catch (error) {
             if (error.response?.data.error)
@@ -55,16 +60,18 @@ function TecnicosEditComponent() {
             name: name,
             endereco: endereco,
             cel_phone: cel_phone,
-            email: email
+            email: email,
+            password: password
         }
-        const skillList ={
+        const skillList = {
             id_service: id_service,
             price: price
         }
         try {
             const response = await api.put("/tecnicos/" + id_tecnico, json, {
                 headers: { Authorization: `Bearer ${user.token}` }
-            })
+            })           
+            
             const responseSkill = await api.post("/tecnicos/skills/" + id_tecnico,
                 skillList,
                 {
@@ -124,34 +131,47 @@ function TecnicosEditComponent() {
                                     {name}
                                 </div>
                                 <div className="row justify-content-between p-3">
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Nome</dt>
+                                    <div className="row px-2 mb-3 justify-content-between col-12 ">
+                                        <div className="col-auto">
+                                            <dt className='p-2'>👤 Nome</dt>
+                                            <input
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                placeholder="Nome do Usuário"
+                                                type="text"
+                                                className="form-control" />
+                                        </div>
+                                        <div className="col-auto">
+                                            <dt className='p-2'>👤 Email</dt>
+                                            <input
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                placeholder="Email"
+                                                type="text"
+                                                className="form-control" />
+                                        </div>
+                                        <div className="col-auto">
+                                            <dt className='p-2'>👤 Celular</dt>
+                                            <input
+                                                value={cel_phone}
+                                                onChange={(e) => setCel_phone(e.target.value)}
+                                                placeholder="Celular com ddd"
+                                                type="text"
+                                                className="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row px-2 mb-3 justify-content-between col-10 ">
+                                    <div className="col-auto">
+                                        <dt className='p-2'>👤 Senha</dt>
                                         <input
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            placeholder="Nome do Usuário"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            placeholder="Senha"
                                             type="text"
                                             className="form-control" />
                                     </div>
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Email</dt>
-                                        <input
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="Email"
-                                            type="text"
-                                            className="form-control" />
-                                    </div>
-                                    <div className="col-3">
-                                        <dt className='p-2'>👤 Celular</dt>
-                                        <input
-                                            value={cel_phone}
-                                            onChange={(e) => setCel_phone(e.target.value)}
-                                            placeholder="Celular com ddd"
-                                            type="text"
-                                            className="form-control" />
-                                    </div>
-                                    <div className="col-3">
+                                    <div className="col-auto">
                                         <label htmlFor="selectServico" className="form-label">Skill</label>
                                         <select
                                             id="selectServico"
@@ -164,7 +184,6 @@ function TecnicosEditComponent() {
                                                 <option key={opcao.id} value={opcao.id}>{opcao.label}</option>
                                             ))}
                                         </select>
-
                                     </div>
                                 </div>
                                 <div className="row justify-content-between p-3">
