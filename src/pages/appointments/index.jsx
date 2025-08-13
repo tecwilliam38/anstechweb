@@ -31,14 +31,19 @@ function Appointments() {
 
     // const dataFilter = { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd  };
     try {
-      const response = await api.get("/appointments/listar/", {
-        headers: { Authorization: `Bearer ${user.token}` },
-        params: { id_tecnico: idTecnico }
-      });
-      if(response.data === "null" || response.data.length === 0) {
-       alert("Nenhum agendamento encontrado.");
+      const response = await api.get("/appointments/listar/",
+        {
+          params: { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd },
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        });
+      if (response.data.length > 0) {
+        // alert("Nenhum agendamento encontrado.");
+        console.log(response.data);
+
       }
-      if (response.data) {
+      if (response.data > 0) {
         setAppointments(response.data)
       }
     } catch (error) {
