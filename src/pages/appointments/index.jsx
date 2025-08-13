@@ -18,32 +18,21 @@ function Appointments() {
   const [appointments, setAppointments] = useState([]);
   const [tecnicos, setTecnicos] = useState([]);
 
-  const [idTecnico, setIdTecnico] = useState("");
+  const [idTecnico, setIdTecnico] = useState(null);
   const [dtStart, setDtStart] = useState("");
   const [dtEnd, setDtEnd] = useState("");
 
-  useEffect(() => {
-    LoadTecnicos();
-    LoadAppointments();
-  }, []);
+
 
   async function LoadAppointments() {
-
-    // const dataFilter = { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd  };
+    const json = { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd };
     try {
-      const response = await api.get("/appointments/listar/",
-        {
-          params: { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd },
-          headers: {
-            Authorization: `Bearer ${user.token}`
-          }
-        });
+      const response = await api.post("/appointments/listar/", json,
+        { headers: { Authorization: `Bearer ${user.token}` } });
       if (response.data.length > 0) {
-        // alert("Nenhum agendamento encontrado.");
         console.log(response.data);
-
       }
-      if (response.data > 0) {
+      if (response.data) {
         setAppointments(response.data)
       }
     } catch (error) {
@@ -106,7 +95,10 @@ function Appointments() {
     }
   }
 
-
+  useEffect(() => {
+    LoadTecnicos();
+    LoadAppointments();
+  }, []);
 
   async function LoadTecnicos() {
     try {
@@ -130,8 +122,11 @@ function Appointments() {
     }
   }
 
-  function ChangeTecnico(e) {
-    setIdTecnico(e.target.value);
+  function ClearFilter() {
+    setIdTecnico("");
+    setDtStart("");
+    setDtEnd("");
+    return LoadAppointments();
   }
 
   return (
@@ -157,10 +152,9 @@ function Appointments() {
                 <input id="startDate" className="form-control" type="date" onChange={(e) => setDtStart(e.target.value)} />
                 <span className="m-2">Até</span>
                 <input id="endtDate" className="form-control" type="date" onChange={(e) => setDtEnd(e.target.value)} />
-                <div className="form-control ms-1 me-1">
-                  {/* <select name="tecnico" id="tecnico" value={idTecnico} onChange={ChangeTecnico}> */}
+                <div className="form-control ms-1 me-1">                  
                   <select name="tecnico" id="tecnico" value={idTecnico} onChange={(e) => setIdTecnico(e.target.value)}>
-                    <option value="">Todos os Técnicos</option>
+                     <option value="">Todos os Técnicos</option>
                     {tecnicos?.map((t) => {
                       return <option key={t.id_tecnico} value={t.id_tecnico}
                       >{t.name}</option>
@@ -168,7 +162,7 @@ function Appointments() {
                   </select>
                 </div>
                 <button onClick={LoadAppointments} className="btn btn-outline-secondary" type="button">
-                  Filtrar</button>
+                  Filtrar</button>                
               </div>
             </div>
 
