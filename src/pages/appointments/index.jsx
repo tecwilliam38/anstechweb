@@ -22,14 +22,11 @@ function Appointments() {
   const [dtStart, setDtStart] = useState("");
   const [dtEnd, setDtEnd] = useState("");
 
-
-
   async function LoadAppointments() {
     const json = { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd };
     try {
-      // const response = await api.post("/appointments/listar/", json,
       const response = await api.post("/tecnicos/listar", json,
-        { headers: { Authorization: `Bearer ${user.token}` } });      
+        { headers: { Authorization: `Bearer ${user.token}` } });
       if (response.data) {
         setAppointments(response.data)
       }
@@ -150,9 +147,9 @@ function Appointments() {
                 <input id="startDate" className="form-control" type="date" onChange={(e) => setDtStart(e.target.value)} />
                 <span className="m-2">Até</span>
                 <input id="endtDate" className="form-control" type="date" onChange={(e) => setDtEnd(e.target.value)} />
-                <div className="form-control ms-1 me-1">                  
+                <div className="form-control ms-1 me-1">
                   <select name="tecnico" id="tecnico" value={idTecnico} onChange={(e) => setIdTecnico(e.target.value)}>
-                     <option value="">Todos os Técnicos</option>
+                    <option value="">Todos os Técnicos</option>
                     {tecnicos?.map((t) => {
                       return <option key={t.id_tecnico} value={t.id_tecnico}
                       >{t.name}</option>
@@ -160,7 +157,7 @@ function Appointments() {
                   </select>
                 </div>
                 <button onClick={LoadAppointments} className="btn btn-outline-secondary" type="button">
-                  Filtrar</button>                
+                  Filtrar</button>
               </div>
             </div>
 
