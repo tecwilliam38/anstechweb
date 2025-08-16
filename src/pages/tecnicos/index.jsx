@@ -21,6 +21,8 @@ function TecnicosComponent() {
     const [email, setEmail] = useState("");
     const [endereco, setEndereco] = useState("");
     const [password, setPassword] = useState("");
+    const [id_service, setId_service] = useState("");
+    const [price, setPrice] = useState('');
 
     function ClickEdit(id_tecnico) {
         navigate("/register/edit/" + id_tecnico, {
@@ -42,6 +44,31 @@ function TecnicosComponent() {
                 console.log(error.response.data.error);
         }
     }
+    async function LoadServices(id_tecnico) {
+        if (!id_tecnico)
+            return;
+
+        try {
+            const response = await api.get("/tecnicos/" + id_tecnico + "/services", 
+                { headers: { Authorization: `Bearer ${user.token}`} },)
+            if (response.data) {
+                setServices(response.data);
+                console.log(response.data);
+            }
+
+        } catch (error) {
+            if (error.response?.data.error) {
+                if (error.response.status == 401)
+                    return navigate("/");
+
+                alert(error.response?.data.error);
+            }
+            else
+                alert("Erro ao listar serviços");
+        }
+    }
+
+
 
     function ClickDelete(id_tecnico) {
         confirmAlert({
@@ -87,7 +114,9 @@ function TecnicosComponent() {
 
     useEffect(() => {
         LoadTecnicos();
+        LoadServices();
     }, [])
+    console.log(services.data);
 
 
     return (
@@ -147,6 +176,16 @@ function TecnicosComponent() {
                                                     {tec.skill}
                                                 </div>
                                             </div>
+                                            <div className="col-auto">
+
+                                                {services.map((service) => (
+                                                    <div key={service.id_tecnico_service}>
+                                                        <h3>{service.name}</h3>
+                                                        <p>Preço: R$ {service.price}</p>
+                                                    </div>
+                                                ))}
+
+                                            </div>
                                             <div className="col-md-3 d-flex align-items-end justify-content-end">
                                                 <button
                                                     onClick={() => ClickEdit(tec.id_tecnico)}
@@ -166,7 +205,12 @@ function TecnicosComponent() {
                                 </div>
                             ))}
                         </div>
-
+                        {services?.map((service) => (
+                            <div key={service.id_service}>
+                                <h3>{service.preco}</h3>
+                                {/* <p>Preço: R$ {service.price}</p> */}
+                            </div>
+                        ))}
                     </div>
                 </div >
             </div >

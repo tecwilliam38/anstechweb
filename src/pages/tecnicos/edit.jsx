@@ -31,9 +31,6 @@ function TecnicosEditComponent() {
     const [id_service, setId_service] = useState("");
     const [price, setPrice] = useState('');
     
-    console.log(id_tecnico);
-    
-
     async function LoadTecnicos() {
         try {
             const response = await api.get("/tecnicos/listar/" + id_tecnico, {
@@ -47,6 +44,8 @@ function TecnicosEditComponent() {
                 setEndereco(response.data.endereco);
                 setSkill(response.data.skill);
                 setPassword(response.data.password);
+                console.log(response.data.skill);
+                
             }
         } catch (error) {
             if (error.response?.data.error)
