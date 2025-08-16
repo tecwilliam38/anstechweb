@@ -38,7 +38,7 @@ function Navbar() {
                                 <li className="nav-item menu-name">
                                     <Link className="nav-link" to="/appointments/clients">Clientes</Link>
                                 </li>
-                                <li className="nav-item menu-name"><Link className="nav-link" to="/appointments/profile">Meu Perfil</Link></li>
+                                <li className="nav-item menu-name"><Link className="nav-link" to="/admin/profile">Meu Perfil</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li className="nav-item menu-name"><button className="dropdown-item menu-name" onClick={Logout}>Desconectar</button></li>
                             </ul>
