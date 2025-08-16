@@ -101,7 +101,8 @@ export default function ProfileScreen() {
                 :
                 <>
                   <p>Carregando...</p>
-                </>}
+                </>
+                }
             </div>
           </div>
         </div >
