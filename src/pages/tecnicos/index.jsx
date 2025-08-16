@@ -23,6 +23,7 @@ function TecnicosComponent() {
     const [password, setPassword] = useState("");
     const [id_service, setId_service] = useState("");
     const [price, setPrice] = useState('');
+    const [servicos, setServicos] = useState([])
 
     function ClickEdit(id_tecnico) {
         navigate("/register/edit/" + id_tecnico, {
@@ -44,18 +45,22 @@ function TecnicosComponent() {
                 console.log(error.response.data.error);
         }
     }
+
+
+
     async function LoadServices(id_tecnico) {
         if (!id_tecnico)
             return;
-
         try {
-            const response = await api.get("/tecnicos/" + id_tecnico + "/services", 
-                { headers: { Authorization: `Bearer ${user.token}`} },)
+            const response = await api.get(`/tecnicos/${id_tecnico}/services`,
+                {
+                    headers: { Authorization: `Bearer ${user.token}` }
+                }
+            );
             if (response.data) {
                 setServices(response.data);
                 console.log(response.data);
             }
-
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
@@ -116,8 +121,6 @@ function TecnicosComponent() {
         LoadTecnicos();
         LoadServices();
     }, [])
-    console.log(services.data);
-
 
     return (
         <>
