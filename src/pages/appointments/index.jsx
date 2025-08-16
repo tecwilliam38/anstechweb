@@ -25,7 +25,7 @@ function Appointments() {
   async function LoadAppointments() {
     const json = { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd };
     try {
-      const response = await api.post("/tecnicos/listar", json,
+      const response = await api.post("/appointments/listar", json,
         { headers: { Authorization: `Bearer ${user.token}` } });
       if (response.data) {
         setAppointments(response.data)
