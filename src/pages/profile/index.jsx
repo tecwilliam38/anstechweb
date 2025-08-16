@@ -16,8 +16,7 @@ export default function ProfileScreen() {
       try {
         const response = await api.get(`/admin/profile/${userAdmin}`);
         if (response?.data) {
-          setAdminData(response.data);
-          console.log('Dados recebidos:', response.data);
+          setAdminData(response.data);          
         } else {
           console.warn('Resposta sem dados.');
         }
