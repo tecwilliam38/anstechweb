@@ -32,7 +32,7 @@ function Appointment(props) {
             <td>{new Intl.DateTimeFormat("pt-br", { dataStyle: "short" }).format(dt)}-{props.booking_hour}h</td>
             <td>{props.status}</td>
             <td>{preco}</td>
-            <td className="text-end">{props.skills}</td>
+            <td className="px-3">{props.skills}</td>
             <td className="text-end justify-content-between">
                 <button onClick={() => props.clickEdit(props.id_appointment)}
                     className="btn btn-sm btn-primary my-2">
