@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react'
+import { useNavigate, useNavigation } from 'react-router-dom';
 import api from '../../api/api';
 import Navbar from '../../components/navbar/index';
-import { useAuth } from '../../context/authContext';
+// import { useAuth } from '../../context/authContext';
 import "./style.css"
 import { toast, ToastContainer } from 'react-toastify';
+import { AuthContext } from '../../context/authContext';
 
 
 function RegisterClient() {
-    const navigate = useNavigate();
-    const { user } = useAuth();
+    const navigate = useNavigation();
+    const { user } = useContext(AuthContext);
 
     const [client_name, setClient_name] = useState("");
     const [email, setEmail] = useState("");
@@ -178,7 +179,7 @@ function RegisterClient() {
                                                 onChange={(e) => setEndereco_bairro(e.target.value)} required />
                                         </div>
                                         <div className="col-4">
-                                            <dt className='p-2'>👤 Endereço cidade</dt>                                            
+                                            <dt className='p-2'>👤 Endereço cidade</dt>
                                             <select
                                                 onChange={(e) => setEndereco_cidade(e.target.value)} required>
                                                 <option value="">Selecione um município</option>

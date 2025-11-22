@@ -166,7 +166,7 @@ function Appointments() {
               <table className="table table-hover rounded">
                 <thead className='title-table'>
                   <tr className="border ">
-                    <th scope="col" className="h5">Cliente</th>
+                    <th scope="col" className="h5 p-3">Cliente</th>
                     <th scope="col" className="h5">Técnico</th>
                     <th scope="col" className="h5">Serviço</th>
                     <th scope="col" className="h5">Data/Hora</th>
