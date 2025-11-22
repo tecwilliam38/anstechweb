@@ -167,12 +167,12 @@ function Appointments() {
                 <thead className='title-table'>
                   <tr className="border ">
                     <th scope="col" className="h5 p-3">Cliente</th>
-                    <th scope="col" className="h5">Técnico</th>
-                    <th scope="col" className="h5">Serviço</th>
-                    <th scope="col" className="h5">Data/Hora</th>
-                    <th scope="col" className="h5">Estado</th>
-                    <th scope="col" className="h5">Preço</th>
-                    <th scope="col" className="h5 text-end">Competências</th>
+                    <th scope="col" className="h5 p-3">Técnico</th>
+                    <th scope="col" className="h5 p-3">Serviço</th>
+                    <th scope="col" className="h5 p-3">Data/Hora</th>
+                    <th scope="col" className="h5 p-3">Estado</th>
+                    <th scope="col" className="h5 p-3">Preço</th>
+                    <th scope="col" className="h5 p-3 text-end">Competências</th>
                     <th scope="col" className="col-buttons"></th>
                   </tr>
                 </thead>
