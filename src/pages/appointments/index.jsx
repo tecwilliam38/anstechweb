@@ -22,11 +22,31 @@ function Appointments() {
   const [dtStart, setDtStart] = useState("");
   const [dtEnd, setDtEnd] = useState("");
 
-  async function LoadAppointments() {
-    const json = { id_tecnico: idTecnico, dt_start: dtStart, dt_end: dtEnd };
+  const buscarAgendamentos = async () => {
     try {
-      const response = await api.post("/appointments/listar", json,
-        { headers: { Authorization: `Bearer ${user.token}` } });
+      const response = await axios.get("http://localhost:3000/api/appointments/agenda", {
+        params: {
+          id_tecnico: idTecnico,
+          dt_start: dtStart,
+          dt_end: dtEnd,
+        },
+      });
+      setAgendamentos(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar agendamentos:", error);
+    }
+  };
+
+  async function LoadAppointments() {
+    try {
+      const response = await api.get("/appointments/listar", {
+        params: {
+          id_tecnico: idTecnico,
+          dt_start: dtStart,
+          dt_end: dtEnd,
+        },
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
       if (response.data) {
         setAppointments(response.data)
       }
