@@ -89,19 +89,22 @@ function AppointmentAdd() {
                     alert(error.response?.data.error);
             }
             else
-                alert("Erro ao listar serviços");
+                alert("Erro ao listar serviços do tecnico");
         }
     }
-
+    
     async function LoadServices(id) {
-
+        
+        // alert(id)
+        console.log(id);
         if (!id)
             return;
         try {
-            const response = await api.get("/tecnicos/" + id + "/services", {
+            const response = await api.get("/tecnicos/services/" + id , {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
-
+            console.log(response.data);
+            
             if (response.data) {
                 setServices(response.data);
             }
@@ -227,7 +230,7 @@ function AppointmentAdd() {
                                 <option value="0">Selecione o serviço</option>
                                 {services?.map(s => {
                                     return <option key={s.id_service}
-                                        value={s.id_service}>{s.description}</option>
+                                        value={s.id_service}>{s.descricao}</option>
                                 })}
                             </select>
                         </div>
