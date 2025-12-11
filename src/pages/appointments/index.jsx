@@ -22,20 +22,20 @@ function Appointments() {
   const [dtStart, setDtStart] = useState("");
   const [dtEnd, setDtEnd] = useState("");
 
-  const buscarAgendamentos = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/api/appointments/agenda", {
-        params: {
-          id_tecnico: idTecnico,
-          dt_start: dtStart,
-          dt_end: dtEnd,
-        },
-      });
-      setAgendamentos(response.data);
-    } catch (error) {
-      console.error("Erro ao buscar agendamentos:", error);
-    }
-  };
+  // const buscarAgendamentos = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:3000/api/appointments/agenda", {
+  //       params: {
+  //         id_tecnico: idTecnico,
+  //         dt_start: dtStart,
+  //         dt_end: dtEnd,
+  //       },
+  //     });
+  //     setAgendamentos(response.data);
+  //   } catch (error) {
+  //     console.error("Erro ao buscar agendamentos:", error);
+  //   }
+  // };
 
   async function LoadAppointments() {
     try {
@@ -47,6 +47,8 @@ function Appointments() {
         },
         headers: { Authorization: `Bearer ${user.token}` }
       });
+      console.log(response.data);
+
       if (response.data) {
         setAppointments(response.data)
       }
@@ -206,9 +208,9 @@ function Appointments() {
                         client={ap.cliente}
                         price={ap.preco}
                         skills={ap.specialty}
-                        status={ap.status}
-                        booking_date={ap.booking_date}
-                        booking_hour={ap.booking_hour}
+                        status={ap.status}                       
+                        booking_date={ap.date}  
+                        booking_hour={ap.hour}
                         clickEdit={ClickEdit}
                         clickDelete={ClickDelete}
                       />

@@ -50,7 +50,7 @@ function AppointmentAdd() {
 
     async function LoadTecnicos() {
         try {
-            const response = await api.get("tecnicos/listar", {
+            const response = await api.get("/listar", {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
             if (response.data) {
@@ -69,6 +69,7 @@ function AppointmentAdd() {
                 alert("Erro ao listar técnicos.");
         }
     }
+     
     async function LoadAppointment(id) {
         try {
             const response = await api.get("/appointments/listar/" + id, {
