@@ -117,10 +117,14 @@ function Appointments() {
     LoadAppointments();
   }, []);
 
+    // const response = await api.get("/listar", {
+    //             headers: { Authorization: `Bearer ${user.token}`
+
   async function LoadTecnicos() {
     try {
-      const response = await api.get("/tecnicos/listar", {
+      const response = await api.get("/listar", {
         headers: { Authorization: `Bearer ${user.token}` }
+        
       });
 
       if (response.data) {
