@@ -22,9 +22,7 @@ function Appointment(props) {
     function ChangeStatus(e) {
         setStatus(e.target.value);
     }
-   
-
-    return (<>
+       return (<>
         <tr>
             <td>{props.client}</td>
             <td>{props.tecnico}</td>
