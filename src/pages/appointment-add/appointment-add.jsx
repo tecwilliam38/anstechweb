@@ -59,6 +59,7 @@ function AppointmentAdd() {
                     LoadAppointment(id_appointment);
                 }
             }
+            
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
