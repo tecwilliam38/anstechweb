@@ -46,8 +46,7 @@ function Appointments() {
           dt_end: dtEnd,
         },
         headers: { Authorization: `Bearer ${user.token}` }
-      });
-      console.log(response.data);
+      });   
 
       if (response.data) {
         setAppointments(response.data)
@@ -128,6 +127,8 @@ function Appointments() {
       });
 
       if (response.data) {
+       console.log("tecnicos",response.data);
+        
         setTecnicos(response.data);
       }
 
@@ -177,8 +178,8 @@ function Appointments() {
                   <select name="tecnico" id="tecnico" value={idTecnico} onChange={(e) => setIdTecnico(e.target.value)}>
                     <option value="">Todos os Técnicos</option>
                     {tecnicos?.map((t) => {
-                      return <option key={t.id_tecnico} value={t.id_tecnico}
-                      >{t.name}</option>
+                      return <option key={t.id_user} value={t.id_user}
+                      >{t.user_name}</option>
                     })}
                   </select>
                 </div>

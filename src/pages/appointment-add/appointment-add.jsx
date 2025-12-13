@@ -59,7 +59,7 @@ function AppointmentAdd() {
                     LoadAppointment(id_appointment);
                 }
             }
-            
+
         } catch (error) {
             if (error.response?.data.error) {
                 if (error.response.status == 401)
@@ -98,14 +98,14 @@ function AppointmentAdd() {
     async function LoadServices(id) {
         
         // alert(id)
-        console.log(id);
+       
         if (!id)
             return;
         try {
             const response = await api.get("/tecnicos/services/" + id , {
                 headers: { Authorization: `Bearer ${user.token}` }
             });
-            console.log(response.data);
+            // console.log(response.data);
             
             if (response.data) {
                 setServices(response.data);
