@@ -18,6 +18,8 @@ Appointment.propTypes = {
 
 function Appointment(props) {
     const dt = new Date(props.booking_date);
+    console.log(props.preco);
+    
     const preco = new Intl.NumberFormat("pt-br", { style: 'currency', currency: 'BRL' }).format(props.price);
     function ChangeStatus(e) {
         setStatus(e.target.value);
