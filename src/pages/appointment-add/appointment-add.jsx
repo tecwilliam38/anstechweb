@@ -216,8 +216,8 @@ function AppointmentAdd() {
                                 value={idTecnico} onChange={(e) => setIdTecnico(e.target.value)} >
                                 <option value="0">Selecione o técnico</option>
                                 {tecnicos?.map(t => {
-                                    return (<React.Fragment key={t.id_tecnico}>
-                                        <option value={t.id_tecnico}>{t.name}</option>
+                                    return (<React.Fragment key={t.id_user}>
+                                        <option value={t.id_tecnico}>{t.user_name}</option>
                                     </React.Fragment>)
                                 })}
                             </select>
